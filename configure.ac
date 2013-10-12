@@ -116,7 +116,6 @@ PKG_CHECK_MODULES(SQLITE, sqlite3 >= 3.8.1)
 dnl GNOME (optional)
 AC_ARG_ENABLE(gnome, AC_HELP_STRING([--disable-gnome], [Disable GNOME support]), , enable_gnome="yes")
 if test "x$enable_gnome" = "xyes"; then
-	BANSHEE_CHECK_GNOME_SHARP
 	GLIB_GSETTINGS
 	AM_CONDITIONAL(ENABLE_GNOME, true)
 else

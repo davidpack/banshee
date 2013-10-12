@@ -79,13 +79,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Banshee.GnomeBackend\GConfConfigurationClient.cs" />
     <Compile Include="Banshee.GnomeBackend\GnomeService.cs" />
     <Compile Include="Banshee.GnomeBackend\Brasero.cs" />
     <Compile Include="Banshee.GnomeBackend\DiscDuplicator.cs" />
     <Compile Include="Banshee.GnomeBackend\GnomeScreensaverManager.cs" />
-    <Compile Include="Banshee.GnomeBackend\GConfProxy.cs" />
     <Compile Include="Banshee.GnomeBackend\GSettingsConfigurationClient.cs" />
+    <Compile Include="Banshee.GnomeBackend\ProxyConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Banshee.Gnome.addin.xml">
