@@ -616,16 +616,6 @@
       <summary>Clear on Quit</summary>
       <description>Clear the play queue when quitting</description>
     </key>
-    <key name="current-track" type="i">
-      <default>0</default>
-      <summary>Current Track</summary>
-      <description>Current track in the Play Queue</description>
-    </key>
-    <key name="current-offset" type="i">
-      <default>0</default>
-      <summary>Current Offset</summary>
-      <description>Current offset of the Play Queue</description>
-    </key>
     <key name="populate-shuffle-mode" type="s">
       <default>'off'</default>
       <summary>Play Queue population mode</summary>
