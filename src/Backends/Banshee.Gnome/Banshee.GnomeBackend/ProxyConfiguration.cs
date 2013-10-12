@@ -62,7 +62,7 @@ namespace Banshee.GnomeBackend
             settings = new Settings (PROXY);
             settings_http = new Settings (HTTP_PROXY);
             settings.ChangeEvent += OnSettingsChange;
-            //settings.AddNotify (HTTP_PROXY, OnGConfNotify);
+            //settings_http.ChangeEvent += OnSettingsChange;
 
             RefreshProxy ();
         }
@@ -71,7 +71,7 @@ namespace Banshee.GnomeBackend
         {
             if (settings != null) {
                 settings.ChangeEvent -= OnSettingsChange;
-                //gconf_client.RemoveNotify (HTTP_PROXY, OnGConfNotify);
+                //settings_http.ChangeEvent -= OnSettingsChange;
                 settings = null;
             }
         }
@@ -94,7 +94,7 @@ namespace Banshee.GnomeBackend
 
         private bool RefreshProxy ()
         {
-            Hyena.Log.Information ("Updating web proxy from GConf");
+            Hyena.Log.Information ("Updating web proxy from GSettings");
             try {
                 HttpWebRequest.DefaultWebProxy = GetProxyFromSettings ();
             } catch {
