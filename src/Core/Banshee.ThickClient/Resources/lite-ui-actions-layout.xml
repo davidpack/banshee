@@ -1,0 +1,206 @@
+<ui>
+  <toolbar name="HeaderToolbar">
+    <placeholder name="SourceActions">
+        <toolitem name="RefreshSmartPlaylist" action="RefreshSmartPlaylistAction" />
+    </placeholder>
+  </toolbar>
+
+  <toolbar name="FooterToolbar">
+    <placeholder name="TaskStatus"/>
+    <placeholder name="StatusBar"/>
+    <placeholder name="Extensions"/>
+    <placeholder name="RepeatButton"/>
+  </toolbar>
+
+  <toolbar name="ControlToolbar">
+    <toolitem action="PreviousAction"/>
+    <toolitem action="PlayPauseAction"/>
+    <placeholder name="NextArrowButton"/>
+    <placeholder name="RepeatButton"/>
+  </toolbar>
+
+  <popup name="ToolbarMenu" action="ToolbarMenuAction">
+    <menuitem name="NewPlaylist" action="NewPlaylistAction"/>
+    <menuitem name="NewSmartPlaylist" action="NewSmartPlaylistAction"/>
+    <separator/>
+    <menuitem name="Import" action="ImportAction"/>
+    <menuitem name="ImportPlaylist" action="ImportPlaylistAction"/>
+    <menuitem name="OpenLocation" action="OpenLocationAction"/>
+    <separator/>
+    <placeholder name="BelowOpenLocation"/>
+    <separator/>
+    <menu name="ToolsMenu" action="ToolsMenuAction">
+      <menuitem name="Rescan" action="RescanAction"/>
+      <menuitem name="ShowEqualizer" action="ShowEqualizerAction"/>
+    </menu>
+    <menuitem name="Preferences" action="PreferencesAction"/>
+    <menuitem name="About" action="AboutAction"/>
+  </popup>
+
+  <popup name="MainMenu">
+    <menu name="MediaMenu" action="MediaMenuAction">
+      <menuitem name="NewPlaylist" action="NewPlaylistAction"/>
+      <menuitem name="NewSmartPlaylist" action="NewSmartPlaylistAction"/>
+      <!--<menuitem name="NewSmartPlaylistFromSearch" action="NewSmartPlaylistFromSearchAction"/>-->
+      <separator/>
+      <menuitem name="Import" action="ImportAction"/>
+      <menuitem name="ImportPlaylist" action="ImportPlaylistAction"/>
+      <menuitem name="OpenLocation" action="OpenLocationAction"/>
+      <menuitem action="OpenSourceSwitcher"/>
+      <separator/>
+      <placeholder name="BelowOpenLocation"/>
+      <separator/>
+      <placeholder name="ClosePlaceholder"/>
+      <menuitem name="Quit" action="QuitAction"/>
+    </menu>
+
+    <menu name="EditMenu" action="EditMenuAction">
+      <menu name="PlayingTrack" action="PlayingTrackAction">
+        <placeholder name="AboveAddToPlaylist"/>
+        <menu name="AddToPlaylist" action="AddPlayingTrackToPlaylistAction"></menu>
+        <placeholder name="BelowAddToPlaylist"/>
+        <menuitem name="TrackEditor" action="PlayingTrackEditorAction"/>
+        <separator/>
+        <menuitem name="RemoveTracks" action="RemovePlayingTrackAction"/>
+        <menuitem name="DeleteTracksFromDrive" action="DeletePlayingTrackFromDriveAction"/>
+        <separator/>
+        <menuitem name="OpenContainingFolder" action="OpenPlayingTrackFolderAction"/>
+        <separator/>
+        <menuitem name="TrackProperties" action="PlayingTrackPropertiesAction"/>
+      </menu>
+      <separator/>
+      <menu name="SelectedTracks" action="SelectedTracksAction">
+        <placeholder name="AboveAddToPlaylist"/>
+        <menu name="AddToPlaylist" action="AddSelectedTracksToPlaylistAction"></menu>
+        <placeholder name="BelowAddToPlaylist"/>
+        <menuitem name="TrackEditor" action="SelectedTracksEditorAction"/>
+        <separator/>
+        <menuitem name="RemoveTracks" action="RemoveSelectedTracksAction"/>
+        <menuitem name="RemoveTracksFromLibrary" action="RemoveTracksFromLibraryAction"/>
+        <menuitem name="DeleteTracksFromDrive" action="DeleteSelectedTracksFromDriveAction"/>
+        <separator/>
+        <menuitem name="OpenContainingFolder" action="OpenSelectedTracksFolderAction"/>
+        <separator/>
+        <menuitem name="TrackProperties" action="SelectedTracksPropertiesAction"/>
+      </menu>
+      <menuitem name="SelectAll" action="SelectAllAction"/>
+      <menuitem name="SelectNone" action="SelectNoneAction"/>
+      <separator/>
+      <menuitem name="RenameSource" action="RenameSourceAction"/>
+      <menuitem name="RefreshSmartPlaylist" action="RefreshSmartPlaylistAction"/>
+      <menuitem name="ExportPlaylist" action="ExportPlaylistAction"/>
+      <menuitem name="SourceProperties" action="SourcePropertiesAction"/>
+      <menuitem name="UnmapSource" action="UnmapSourceAction"/>
+      <separator name="PreferencesSeparator" />
+      <menuitem name="Preferences" action="PreferencesAction"/>
+    </menu>
+
+    <menu name="ViewMenu" action="ViewMenuAction">
+      <placeholder name="BrowserViews"/>
+      <placeholder name="ViewMenuAdditions"/>
+      <menuitem name="ShowCoverArt" action="ShowCoverArtAction"/>
+      <menuitem name="ShowContextPane" action="ShowContextPaneAction"/>
+      <menuitem name="FullScreen" action="FullScreenAction"/>
+      <separator/>
+      <menuitem name="ShowEqualizer" action="ShowEqualizerAction"/>
+    </menu>
+
+    <menu name="PlaybackMenu" action="PlaybackMenuAction">
+      <menuitem name="PlayPause" action="PlayPauseAction"/>
+      <menuitem name="StopWhenFinished" action="StopWhenFinishedAction"/>
+      <separator/>
+      <menuitem name="Next" action="NextAction"/>
+      <menuitem name="Previous" action="PreviousAction"/>
+      <separator/>
+      <!--
+      <menuitem name="SeekBackward" action="SeekBackwardAction"/>
+      <menuitem name="SeekForward" action="SeekForwardAction"/>
+      -->
+      <menuitem name="SeekTo" action="SeekToAction"/>
+      <menuitem name="JumpToPlayingTrack" action="JumpToPlayingTrackAction"/>
+      <menuitem name="RestartSong" action="RestartSongAction"/>
+      <separator/>
+      <placeholder name="PlaybackMenuAdditions"/>
+      <menuitem name="RepeatMenu" action="RepeatMenuAction"/>
+      <menuitem name="ShuffleMenu" action="ShuffleMenuAction"/>
+      <menuitem name="SubtitleMenu" action="SubtitleMenuAction"/>
+    </menu>
+
+    <menu name="ToolsMenu" action="ToolsMenuAction">
+      <menuitem name="Rescan" action="RescanAction"/>
+    </menu>
+
+    <menu name="HelpMenu" action="HelpMenuAction">
+      <menuitem action="UserHelp"/>
+      <separator/>
+      <menuitem name="Wiki" action="WikiAction"/>
+      <menuitem name="WikiDeveloper" action="WikiDeveloperAction"/>
+      <separator/>
+      <placeholder name="CheckForUpdatesPlaceholder"/>
+      <menuitem name="VersionInformation" action="VersionInformationAction"/>
+      <menuitem name="About" action="AboutAction"/>
+    </menu>
+  </popup>
+
+  <popup name="LibraryContextMenu" action="LibraryContextMenuAction">
+    <menuitem name="NewPlaylist" action="NewPlaylistAction"/>
+    <menuitem name="NewSmartPlaylist" action="NewSmartPlaylistAction"/>
+    <menu name="SortChildren" action="SortChildrenAction" />
+    <separator/>
+    <menuitem name="Import" action="ImportAction"/>
+    <menuitem name="SourcePreferences" action="SourcePreferencesAction"/>
+    <separator/>
+  </popup>
+
+  <popup name="RemovableSourceContextMenu" action="RemovableSourceContextMenuAction">
+    <menuitem name="NewPlaylist" action="NewPlaylistAction"/>
+    <menuitem name="NewSmartPlaylist" action="NewSmartPlaylistAction"/>
+    <menu name="SortChildren" action="SortChildrenAction" />
+    <separator/>
+    <placeholder name="AboveImportSource"/>
+    <menuitem name="ImportSource" action="ImportSourceAction"/>
+    <menuitem name="RenameSource" action="RenameSourceAction"/>
+    <menuitem name="SourcePreferences" action="SourcePreferencesAction"/>
+    <menuitem name="UnmapSource" action="UnmapSourceAction"/>
+    <separator/>
+    <menuitem name="SourceProperties" action="SourcePropertiesAction"/>
+  </popup>
+
+  <popup name="ErrorSourceContextMenu" action="ErrorSourceContextMenuAction">
+    <menuitem name="UnmapSource" action="UnmapSourceAction"/>
+  </popup>
+
+  <popup name="SourceContextMenu" action="SourceContextMenuAction">
+    <menuitem name="ImportSource" action="ImportSourceAction"/>
+    <separator/>
+    <menuitem name="RenameSource" action="RenameSourceAction"/>
+    <menuitem name="RefreshSmartPlaylist" action="RefreshSmartPlaylistAction"/>
+    <menuitem name="ExportPlaylist" action="ExportPlaylistAction"/>
+    <menuitem name="UnmapSource" action="UnmapSourceAction"/>
+    <separator/>
+    <menuitem name="SourceProperties" action="SourcePropertiesAction"/>
+    <menuitem name="SourcePreferences" action="SourcePreferencesAction"/>
+  </popup>
+
+  <popup name="TrackContextMenu" action="TrackContextMenuAction">
+    <menuitem action="PlayTrack"/>
+    <separator/>
+    <placeholder name="AboveAddToPlaylist"/>
+    <menu name="AddToPlaylist" action="AddSelectedTracksToPlaylistAction"></menu>
+    <placeholder name="BelowAddToPlaylist"/>
+    <separator/>
+    <menuitem name="RemoveTracks" action="RemoveSelectedTracksAction"/>
+    <menuitem name="RemoveTracksFromLibrary" action="RemoveTracksFromLibraryAction"/>
+    <menuitem name="DeleteTracksFromDrive" action="DeleteSelectedTracksFromDriveAction"/>
+    <separator/>
+    <menuitem name="OpenContainingFolder" action="OpenSelectedTracksFolderAction"/>
+    <menu name="SearchMenu" action="SearchMenuAction">
+      <menuitem name="SearchForSameArtist" action="SearchForSameArtistAction"/>
+      <menuitem name="SearchForSameAlbum" action="SearchForSameAlbumAction"/>
+    </menu>
+    <separator/>
+    <placeholder name="AboveTrackProperties"/>
+    <menuitem name="TrackProperties" action="SelectedTracksPropertiesAction"/>
+    <menuitem name="TrackEditor" action="SelectedTracksEditorAction"/>
+  </popup>
+</ui>

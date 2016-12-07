@@ -114,7 +114,7 @@ namespace Banshee.Dap.Gui
 
         public bool SetSource (ISource src)
         {
-            this.source = source as DapSource;
+            this.source = src as DapSource;
             return this.source != null;
         }
 

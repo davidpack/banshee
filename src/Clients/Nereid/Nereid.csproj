@@ -115,11 +115,16 @@
       <Name>Hyena.Gui</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Gtk.Extra\Gtk.Extra.csproj">
+      <Project>{BEDAF1EF-1BB9-4F19-B875-BA56FF9CBA7E}</Project>
+      <Name>Gtk.Extra</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Nereid\PlayerInterface.cs" />
     <Compile Include="Nereid\ViewContainer.cs" />
     <Compile Include="Nereid\Client.cs" />
+    <Compile Include="Nereid\PlayerInterfaceLite.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

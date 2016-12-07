@@ -1,10 +1,10 @@
 //
-// Client.cs
+// SearchableTreeView.cs
 //
 // Author:
-//   Aaron Bockover <abockover@novell.com>
+//   Nicholas Little <arealityfarbetween@googlemail.com>
 //
-// Copyright (C) 2007-2008 Novell, Inc.
+// Copyright (C) 2017
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -27,44 +27,40 @@
 //
 
 using System;
-using System.IO;
-using System.Diagnostics;
-using System.Reflection;
-using System.Collections.Generic;
-using Mono.Unix;
+using Gtk;
+using Hyena.Data.Gui;
+using Hyena.Query;
+using Hyena.Widgets;
+using Banshee.Collection.Database;
+using Hyena.Collections;
 
-using Hyena;
-using Hyena.CommandLine;
-
-using Banshee.Base;
-using Banshee.ServiceStack;
-
-namespace Nereid
+namespace Banshee.Collection.Gui
 {
-    public class Client : Banshee.Gui.GtkBaseClient
+    public class SearchableTreeView<T> : TreeView<T>
     {
-
-#if WIN32
-        // Extracted from Scott's old windows-port branch.  I believe this is needed
-        // for COM-interop needed by the notification-area widget.
-        [STAThread]
-#endif
-        public static void Main (string [] args)
+        private QueryHelper<T> query_helper;
+        
+        protected SearchableTreeView () : base ()
         {
-            Startup<Nereid.Client> (args);
+            query_helper = new QueryHelper<T> (this);
         }
 
-        protected override void OnRegisterServices ()
+        protected SearchableTreeView (IntPtr raw) : base (raw)
         {
-            if (ApplicationContext.CommandLine.Contains("classic"))
-                ServiceManager.RegisterService<Nereid.PlayerInterface> ();
-            else
-                ServiceManager.RegisterService<Nereid.PlayerInterfaceLite> ();
         }
 
-        public override string ClientId {
-            get { return "nereid"; }
+        public virtual bool SelectOnRowFound {
+            get { return true; }
+        }
+
+        protected override bool OnKeyPressEvent (Gdk.EventKey press)
+        {
+            return query_helper.OnKeyPressEvent (press);
+        }
+
+        private void OnPopupKeyPressed (object sender, KeyPressEventArgs args)
+        {
+            query_helper.OnPopupKeyPressed (sender, args);
         }
     }
 }
-

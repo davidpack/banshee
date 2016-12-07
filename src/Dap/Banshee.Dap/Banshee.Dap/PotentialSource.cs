@@ -59,13 +59,11 @@ namespace Banshee.Dap
         {
             base.Initialize ();
 
-            ThreadAssist.BlockingProxyToMain (() => {
-                if (!active) {
-                    ClearChildSources ();
-                    Properties.Set<ISourceContents> ("Nereid.SourceContents", new InactiveDapContent (this));
-                }
-                DapContent.UpdateActions ();
-            });
+            if (!active) {
+                ClearChildSources ();
+                Properties.Set<ISourceContents> ("Nereid.SourceContents", new InactiveDapContent (this));
+            }
+            DapContent.UpdateActions ();
         }
 
         #endregion

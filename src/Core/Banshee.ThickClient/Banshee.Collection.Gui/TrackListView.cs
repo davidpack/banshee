@@ -44,7 +44,11 @@ using Banshee.Gui;
 
 namespace Banshee.Collection.Gui
 {
+#if TREEVIEW
+    public class TrackListView : BaseTrackTreeView
+#else
     public class TrackListView : BaseTrackListView
+#endif
     {
         private ColumnController default_column_controller;
 
@@ -59,8 +63,6 @@ namespace Banshee.Collection.Gui
 
         public override void SetModel (IListModel<TrackInfo> value, double vpos)
         {
-            //Console.WriteLine ("TrackListView.SetModel for {0} with vpos {1}", value, vpos);
-
             if (value != null) {
                 Source active_source = ServiceManager.SourceManager.ActiveSource;
                 Source source = active_source;

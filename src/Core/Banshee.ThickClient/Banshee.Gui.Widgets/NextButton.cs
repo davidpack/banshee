@@ -66,6 +66,8 @@ namespace Banshee.Gui.Widgets
                 Menu.Deactivate ();
             }
 
+            IconSize = IconSize;
+
             Menu = shuffle_actions.CreateMenu (with_repeat_actions);
 
             ToggleButton.Sensitive = shuffle_actions.Sensitive;

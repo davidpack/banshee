@@ -68,6 +68,7 @@ AC_SUBST(BANSHEE_DESKTOP_NAME)
 
 dnl Required dependencies (managed/core)
 BANSHEE_CHECK_GTK_SHARP
+BANSHEE_CHECK_GTK_EXTRA
 
 dnl Clutter support is not available in Gst# backend and is opt-in in the unmanaged one
 dnl so we set a default value here for simplicity
@@ -122,6 +123,9 @@ BANSHEE_CHECK_DAP_KARMA
 
 dnl DAAP support (optional)
 BANSHEE_CHECK_DAAP
+
+dnl TreeView (optional)
+BANSHEE_CHECK_TREEVIEW
 
 dnl Extensions
 BANSHEE_CHECK_EXTENSION_AMAZONMP3
@@ -277,6 +281,8 @@ src/Backends/Banshee.Osx/Makefile
 src/Backends/Banshee.Windows/Makefile
 
 src/Libraries/Makefile
+src/Libraries/Gtk.Extra/Makefile
+src/Libraries/Gtk.Extra/Gtk.Extra.dll.config
 src/Libraries/Lastfm/Makefile
 src/Libraries/Lastfm.Gui/Makefile
 src/Libraries/Migo/Makefile
@@ -376,6 +382,7 @@ AC_MSG_NOTICE([${PACKAGE}-${VERSION}
   Extra Features:
     DAAP Support:          ${with_daap} (mono-zeroconf >= $MZC_REQUIRED)
     Web Browser:           ${with_webkit} (webkitgtk-3.0 >= $WEBKIT_MIN_VERSION, libsoup-2.4 >= $SOUP_MIN_VERSION)
+    Tree View:             ${enable_treeview}
 
   Extensions:
     AmazonMp3:             ${enable_amazonmp3}

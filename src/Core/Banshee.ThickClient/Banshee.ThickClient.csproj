@@ -21,11 +21,13 @@
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\bin</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG TREEVIEW</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\bin</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TREEVIEW</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Banshee.Services\Banshee.Services.csproj">
@@ -139,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\BookmarksMenu.xml">
       <LogicalName>BookmarksMenu.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\lite-ui-actions-layout.xml">
+      <LogicalName>lite-ui-actions-layout.xml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +310,12 @@
     <Compile Include="Banshee.Collection.Gui\ColumnCellArtistText.cs" />
     <Compile Include="Banshee.Collection.Gui\IArtistListRenderer.cs" />
     <Compile Include="Banshee.Gui\Safe.cs" />
+    <Compile Include="Banshee.Gui\MainMenuButton.cs" />
+    <Compile Include="Banshee.Sources.Gui\SimpleListSourceContents.cs" />
+    <Compile Include="Banshee.Collection.Gui\SearchableTreeView.cs" />
+    <Compile Include="Banshee.Collection.Gui\TrackFilterTreeView.cs" />
+    <Compile Include="Banshee.Collection.Gui\BaseTrackTreeView.cs" />
+    <Compile Include="Banshee.Collection.Gui\QueryHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

@@ -212,7 +212,7 @@ namespace Banshee.Sources.Gui
             ArtistFilterType.Set (args.Current.Value == 1 ? "albumartist" : "artist");
         }
 
-        private void SwapView<T> (ListView<T> oldView, ListView<T> newView)
+        private void SwapView<V> (V oldView, V newView) where V : Widget, IListView
         {
             List<ScrolledWindow> new_filter_list = new List<ScrolledWindow> ();
             List<ScrolledWindow> old_filter_list = new List<ScrolledWindow> (filter_scrolled_windows);
@@ -263,6 +263,7 @@ namespace Banshee.Sources.Gui
             }
 
             SetupFilterView (year_view = new YearListView ());
+
             SetupFilterView (album_view = new AlbumListView ());
         }
 

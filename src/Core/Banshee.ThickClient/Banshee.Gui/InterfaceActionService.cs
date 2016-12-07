@@ -72,7 +72,12 @@ namespace Banshee.Gui
             AddActionGroup (track_actions       = new TrackActions ());
             AddActionGroup (source_actions      = new SourceActions ());
             AddActionGroup (artist_list_actions = new ArtistListActions ());
-            UIManager.AddUiFromResource ("core-ui-actions-layout.xml");
+
+            if (ApplicationContext.CommandLine.Contains ("classic")) {
+                UIManager.AddUiFromResource ("core-ui-actions-layout.xml");
+            } else {
+                UIManager.AddUiFromResource ("lite-ui-actions-layout.xml");
+            }
 
             AddinManager.AddExtensionNodeHandler ("/Banshee/ThickClient/ActionGroup", OnExtensionChanged);
 

@@ -148,13 +148,13 @@ namespace Banshee.Sources.Gui
             browser_container.Visible = ActiveSourceCanHasBrowser && BrowserVisible.Get ();
         }
 
-        protected void SetupMainView<T> (ListView<T> main_view)
+        protected void SetupMainView<V> (V main_view) where V : Widget, IListView
         {
             this.main_view = main_view;
             main_scrolled_window = SetupView (main_view);
         }
 
-        protected void SetupFilterView<T> (ListView<T> filter_view)
+        protected void SetupFilterView<V> (V filter_view) where V : Widget, IListView
         {
             ScrolledWindow window = SetupView (filter_view);
             filter_scrolled_windows.Add (window);
@@ -334,7 +334,7 @@ namespace Banshee.Sources.Gui
 
         protected void SetModel<T> (IListModel<T> model)
         {
-            ListView<T> view = FindListView <T> ();
+            var view = FindListView <T> ();
             if (view != null) {
                 SetModel (view, model);
             } else {
@@ -342,7 +342,7 @@ namespace Banshee.Sources.Gui
             }
         }
 
-        protected void SetModel<T> (ListView<T> view, IListModel<T> model)
+        protected void SetModel<T> (IListView<T> view, IListModel<T> model)
         {
             if (view.Model != null) {
                 model_positions[view.Model] = view.Vadjustment != null ? view.Vadjustment.Value : 0;
@@ -360,14 +360,14 @@ namespace Banshee.Sources.Gui
             view.SetModel (model, model_positions[model]);
         }
 
-        private ListView<T> FindListView<T> ()
+        private IListView<T> FindListView<T> ()
         {
-            if (main_view is ListView<T>)
-                return (ListView<T>) main_view;
+            if (main_view is IListView<T>)
+                return (IListView<T>) main_view;
 
             foreach (object view in filter_views)
-                if (view is ListView<T>)
-                    return (ListView<T>) view;
+                if (view is IListView<T>)
+                    return (IListView<T>) view;
 
             return null;
         }

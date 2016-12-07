@@ -219,26 +219,24 @@ namespace Banshee.Dap
                 }
             }
 
-            AddChildSource (music_group_source = new MusicGroupSource (this));
+            AddChildSource (music_group_source = music_group_source ?? new MusicGroupSource (this));
             // We want the group sources to be on top of the list, with Music first
             music_group_source.Order = -30;
 
-            if (SupportsVideo) {
+            if (SupportsVideo && null == video_group_source) {
                 video_group_source = new VideoGroupSource (this);
                 video_group_source.Order = -20;
             }
 
-            if (SupportsPodcasts) {
+            if (SupportsPodcasts && null == podcast_group_source) {
                 podcast_group_source = new PodcastGroupSource (this);
                 podcast_group_source.Order = -10;
             }
 
             BuildPreferences ();
 
-            ThreadAssist.BlockingProxyToMain (delegate {
-                Properties.Set<Gtk.Widget> ("Nereid.SourceContents.FooterWidget", dap_info_bar = new DapInfoBar (this));
-                Properties.Set<Banshee.Sources.Gui.ISourceContents> ("Nereid.SourceContents", dap_properties_display = new DapContent (this));
-            });
+            Properties.Set<Gtk.Widget> ("Nereid.SourceContents.FooterWidget", dap_info_bar = dap_info_bar ?? new DapInfoBar (this));
+            Properties.Set<Banshee.Sources.Gui.ISourceContents> ("Nereid.SourceContents", dap_properties_display = dap_properties_display ?? new DapContent (this));
         }
 
         private void BuildPreferences ()
