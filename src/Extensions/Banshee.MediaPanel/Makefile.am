@@ -14,7 +14,11 @@ SOURCES =  \
 
 RESOURCES = Banshee.MediaPanel.addin.xml
 
+if ENABLE_MEDIAPANEL
 include $(top_srcdir)/build/build.mk
+else
+include $(top_srcdir)/build/build.dist.mk
+endif
 
 desktopfiles_in_files = banshee-media-panel.desktop.in
 desktopfiles_files = $(desktopfiles_in_files:.desktop.in=.desktop)

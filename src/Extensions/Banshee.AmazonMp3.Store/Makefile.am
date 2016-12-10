@@ -11,7 +11,7 @@ SOURCES =  \
 
 RESOURCES = Banshee.AmazonMp3.Store.addin.xml
 
-if HAVE_LIBWEBKIT
+if ENABLE_AMAZONMP3_STORE
 include $(top_srcdir)/build/build.mk
 else
 include $(top_srcdir)/build/build.dist.mk

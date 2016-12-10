@@ -85,7 +85,7 @@ fi
 
 run autopoint --force
 run $LIBTOOLIZE --force --copy --automake
-run aclocal -I build/m4/banshee -I build/m4/shamrock -I build/m4/shave $ACLOCAL_FLAGS
+run aclocal -I build/m4/banshee -I build/m4/banshee/backends -I build/m4/banshee/clients -I build/m4/banshee/dap -I build/m4/banshee/extensions -I build/m4/shamrock -I build/m4/shave $ACLOCAL_FLAGS
 run autoconf
 run autoheader
 
