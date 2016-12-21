@@ -43,19 +43,20 @@ using Banshee.MediaEngine;
 using Banshee.PlaybackController;
 using Banshee.Library;
 using Banshee.Hardware;
+using System.Collections.Concurrent;
 
 namespace Banshee.ServiceStack
 {
     public static class ServiceManager
     {
-        private static Dictionary<string, IService> services = new Dictionary<string, IService> ();
-        private static Dictionary<string, IExtensionService> extension_services = new Dictionary<string, IExtensionService> ();
+        private static ConcurrentDictionary<string, IService> _services = new ConcurrentDictionary<string, IService> ();
+        private static ConcurrentDictionary<string, IExtensionService> _extensions = new ConcurrentDictionary<string, IExtensionService> ();
+
         private static Stack<IService> dispose_services = new Stack<IService> ();
         private static List<Type> service_types = new List<Type> ();
         private static ExtensionNodeList extension_nodes;
 
         private static bool is_initialized = false;
-        private static readonly object self_mutex = new object ();
 
         public static event EventHandler StartupBegin;
         public static event EventHandler StartupFinished;
@@ -125,33 +126,31 @@ namespace Banshee.ServiceStack
 
         public static void Run()
         {
-            lock (self_mutex) {
-                OnStartupBegin ();
+            OnStartupBegin ();
 
-                uint cumulative_timer_id = Log.InformationTimerStart ();
+            uint cumulative_timer_id = Log.InformationTimerStart ();
 
-                System.Net.ServicePointManager.DefaultConnectionLimit = 6;
+            System.Net.ServicePointManager.DefaultConnectionLimit = 6;
 
-                foreach (Type type in service_types) {
-                    RegisterService (type);
-                }
-
-                if (extension_nodes != null) {
-                    foreach (TypeExtensionNode node in extension_nodes) {
-                        StartExtension (node);
-                    }
-                }
-
-                if (AddinManager.IsInitialized) {
-                    AddinManager.AddExtensionNodeHandler ("/Banshee/ServiceManager/Service", OnExtensionChanged);
-                }
-
-                is_initialized = true;
-
-                Log.InformationTimerPrint (cumulative_timer_id, "All services are started {0}");
-
-                OnStartupFinished ();
+            foreach (Type type in service_types) {
+                RegisterService (type);
             }
+
+            if (extension_nodes != null) {
+                foreach (TypeExtensionNode node in extension_nodes) {
+                    StartExtension (node);
+                }
+            }
+
+            if (AddinManager.IsInitialized) {
+                AddinManager.AddExtensionNodeHandler ("/Banshee/ServiceManager/Service", OnExtensionChanged);
+            }
+
+            is_initialized = true;
+
+            Log.InformationTimerPrint (cumulative_timer_id, "All services are started {0}");
+
+            OnStartupFinished ();
         }
 
         private static IService RegisterService (Type type)
@@ -194,7 +193,7 @@ namespace Banshee.ServiceStack
 
         private static void StartExtension (TypeExtensionNode node)
         {
-            if (extension_services.ContainsKey (node.Path)) {
+            if (_extensions.ContainsKey (node.Path)) {
                 return;
             }
 
@@ -214,7 +213,7 @@ namespace Banshee.ServiceStack
 
                 OnServiceStarted (service);
 
-                extension_services.Add (node.Path, service);
+                _extensions.TryAdd (node.Path, service);
 
                 dispose_services.Push (service);
             } catch (Exception e) {
@@ -226,48 +225,44 @@ namespace Banshee.ServiceStack
 
         private static void OnExtensionChanged (object o, ExtensionNodeEventArgs args)
         {
-            lock (self_mutex) {
-                TypeExtensionNode node = (TypeExtensionNode)args.ExtensionNode;
+            TypeExtensionNode node = (TypeExtensionNode)args.ExtensionNode;
 
-                if (args.Change == ExtensionChange.Add) {
-                    StartExtension (node);
-                } else if (args.Change == ExtensionChange.Remove && extension_services.ContainsKey (node.Path)) {
-                    IExtensionService service = extension_services[node.Path];
-                    extension_services.Remove (node.Path);
-                    Remove (service);
-                    ((IDisposable)service).Dispose ();
+            if (args.Change == ExtensionChange.Add) {
+                StartExtension (node);
+            } else if (args.Change == ExtensionChange.Remove && _extensions.ContainsKey (node.Path)) {
+                IExtensionService service;
+                _extensions.TryRemove (node.Path, out service);
+                Remove (service);
+                ((IDisposable)service).Dispose ();
 
-                    Log.DebugFormat ("Extension service disposed ({0})", service.ServiceName);
+                Log.DebugFormat ("Extension service disposed ({0})", service.ServiceName);
 
-                    // Rebuild the dispose stack excluding the extension service
-                    IService [] tmp_services = new IService[dispose_services.Count - 1];
-                    int count = tmp_services.Length;
-                    foreach (IService tmp_service in dispose_services) {
-                        if (tmp_service != service) {
-                            tmp_services[--count] = tmp_service;
-                        }
+                // Rebuild the dispose stack excluding the extension service
+                IService [] tmp_services = new IService[dispose_services.Count - 1];
+                int count = tmp_services.Length;
+                foreach (IService tmp_service in dispose_services) {
+                    if (tmp_service != service) {
+                        tmp_services[--count] = tmp_service;
                     }
-                    dispose_services = new Stack<IService> (tmp_services);
                 }
+                dispose_services = new Stack<IService> (tmp_services);
             }
         }
 
         private static bool delayed_initialized, have_client;
         private static void DelayedInitialize ()
         {
-            lock (self_mutex) {
-                if (!delayed_initialized) {
-                    have_client = true;
-                    var initialized = new HashSet <string> ();
-                    var to_initialize = services.Values.ToList ();
-                    foreach (IService service in to_initialize) {
-                        if (!initialized.Contains (service.ServiceName)) {
-                            DelayedInitialize (service);
-                            initialized.Add (service.ServiceName);
-                        }
+            if (!delayed_initialized) {
+                have_client = true;
+                var initialized = new HashSet <string> ();
+                var to_initialize = _services.Values.ToList ();
+                foreach (IService service in to_initialize) {
+                    if (!initialized.Contains (service.ServiceName)) {
+                        DelayedInitialize (service);
+                        initialized.Add (service.ServiceName);
                     }
-                    delayed_initialized = true;
                 }
+                delayed_initialized = true;
             }
         }
 
@@ -287,48 +282,40 @@ namespace Banshee.ServiceStack
 
         public static void Shutdown ()
         {
-            lock (self_mutex) {
-                while (dispose_services.Count > 0) {
-                    IService service = dispose_services.Pop ();
-                    try {
-                        ((IDisposable)service).Dispose ();
-                        Log.DebugFormat ("Service disposed ({0})", service.ServiceName);
-                    } catch (Exception e) {
-                        Log.Error (String.Format ("Service disposal ({0}) threw an exception", service.ServiceName), e);
-                    }
+            while (dispose_services.Count > 0) {
+                IService service = dispose_services.Pop ();
+                try {
+                    ((IDisposable)service).Dispose ();
+                    Log.DebugFormat ("Service disposed ({0})", service.ServiceName);
+                } catch (Exception e) {
+                    Log.Error (String.Format ("Service disposal ({0}) threw an exception", service.ServiceName), e);
                 }
-
-                services.Clear ();
             }
+
+            _services.Clear ();
         }
 
         public static void RegisterService (IService service)
         {
-            lock (self_mutex) {
-                Add (service);
+            Add (service);
 
-                if(service is IDBusExportable) {
-                    DBusServiceManager.RegisterObject ((IDBusExportable)service);
-                }
+            if(service is IDBusExportable) {
+                DBusServiceManager.RegisterObject ((IDBusExportable)service);
             }
         }
 
         public static void RegisterService<T> () where T : IService
         {
-            lock (self_mutex) {
-                if (is_initialized) {
-                    RegisterService (Activator.CreateInstance <T> ());
-                } else {
-                    service_types.Add (typeof (T));
-                }
+            if (is_initialized) {
+                RegisterService (Activator.CreateInstance <T> ());
+            } else {
+                service_types.Add (typeof (T));
             }
         }
 
         public static bool Contains (string serviceName)
         {
-            lock (self_mutex) {
-                return services.ContainsKey (serviceName);
-            }
+            return _services.ContainsKey (serviceName);
         }
 
         public static bool Contains<T> () where T : class, IService
@@ -338,43 +325,35 @@ namespace Banshee.ServiceStack
 
         public static IService Get (string serviceName)
         {
-            lock (self_mutex) {
-                if (services.ContainsKey (serviceName)) {
-                    return services[serviceName];
-                }
-            }
-
-            return null;
+            IService svc;
+            return _services.TryGetValue (serviceName, out svc) ? svc : null;
         }
 
         public static T Get<T> () where T : class, IService
         {
-            lock (self_mutex) {
-                Type type = typeof (T);
-                T service = Get (type.Name) as T;
-                if (service == null && typeof(IRegisterOnDemandService).IsAssignableFrom (type)) {
-                    return RegisterService (type) as T;
-                }
-
-                return service;
+            var type = typeof (T);
+            var key = type.Name;
+            if (typeof (IRegisterOnDemandService).IsAssignableFrom (typeof (T)))
+            {
+                return (T) _services.GetOrAdd (key, k => RegisterService (type));
+            }
+            else
+            {
+                return (T) Get (key);
             }
         }
 
         private static void Add (IService service)
         {
-            services.Add (service.ServiceName, service);
-            //because Get<T>() works this way:
-            var type_name = service.GetType ().Name;
-            if (type_name != service.ServiceName) {
-                services.Add (type_name, service);
-            }
+            _services.TryAdd (service.ServiceName, service);
+            _services.TryAdd (service.GetType ().Name, service);
         }
 
         private static void Remove (IService service)
         {
-            services.Remove (service.ServiceName);
-            //because Add () works this way:
-            services.Remove (service.GetType ().Name);
+            IService svc;
+            _services.TryRemove (service.ServiceName, out svc);
+            _services.TryRemove (service.GetType ().Name, out svc);
         }
 
         private static void OnStartupBegin ()
