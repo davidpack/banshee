@@ -2,6 +2,7 @@ INCLUDES = \
 	-I$(top_srcdir) \
 	-Wall \
 	-ggdb3 \
+	-U_FORTIFY_SOURCE \
 	-D_FORTIFY_SOURCE=2 \
 	$(LIBBANSHEE_CFLAGS) \
 	$(GST_CFLAGS) 

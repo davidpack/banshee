@@ -7,7 +7,7 @@ ossiferdir = $(pkglibdir)
 ossifer_LTLIBRARIES = libossifer.la
 
 libossifer_la_SOURCES = $(SOURCES)
-libossifer_la_CFLAGS = $(LIBWEBKIT_CFLAGS) -D_FORTIFY_SOURCE=2 -ggdb3 -Wall
+libossifer_la_CFLAGS = $(LIBWEBKIT_CFLAGS) -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -ggdb3 -Wall
 libossifer_la_LIBADD = $(LIBWEBKIT_LIBS)
 libossifer_la_LDFLAGS = -avoid-version -module
 
