@@ -143,8 +143,8 @@ struct BansheePlayer {
     gdouble current_volume;
     
     // Pipeline/Playback State
-    GMutex *video_mutex;
-    GMutex *replaygain_mutex;
+    GMutex video_mutex;
+    GMutex replaygain_mutex;
     GstState target_state;
     gboolean buffering;
     gchar *cdda_device;

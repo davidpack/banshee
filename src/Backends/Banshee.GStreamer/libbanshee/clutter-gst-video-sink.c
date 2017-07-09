@@ -191,7 +191,7 @@ struct _ClutterGstVideoSinkPrivate
   CoglHandle               shader;
   GLuint                   fp;
 
-  GMutex                  *buffer_lock;   /* mutex for the buffer and idle_id */
+  GMutex                   buffer_lock;   /* mutex for the buffer and idle_id */
   GstBuffer               *buffer;
   guint                    idle_id;
 
@@ -889,11 +889,11 @@ clutter_gst_video_sink_idle_func (gpointer data)
       priv->renderer_state = CLUTTER_GST_RENDERER_RUNNING;
     }
 
-  g_mutex_lock (priv->buffer_lock);
+  g_mutex_lock (&priv->buffer_lock);
   if (!priv->buffer)
     {
       priv->idle_id = 0;
-      g_mutex_unlock (priv->buffer_lock);
+      g_mutex_unlock (&priv->buffer_lock);
       return FALSE;
     }
 
@@ -903,12 +903,12 @@ clutter_gst_video_sink_idle_func (gpointer data)
   if (G_UNLIKELY (!GST_IS_BUFFER (buffer)))
     {
       priv->idle_id = 0;
-      g_mutex_unlock (priv->buffer_lock);
+      g_mutex_unlock (&priv->buffer_lock);
       return FALSE;
     }
 
   priv->idle_id = 0;
-  g_mutex_unlock (priv->buffer_lock);
+  g_mutex_unlock (&priv->buffer_lock);
 
   priv->renderer->upload (sink, buffer);
 
@@ -940,7 +940,7 @@ clutter_gst_video_sink_init (ClutterGstVideoSink      *sink,
     G_TYPE_INSTANCE_GET_PRIVATE (sink, CLUTTER_GST_TYPE_VIDEO_SINK,
                                  ClutterGstVideoSinkPrivate);
 
-  priv->buffer_lock = g_mutex_new ();
+  g_mutex_init (&priv->buffer_lock);
   priv->renderers = clutter_gst_build_renderers_list (&priv->syms);
   priv->caps = clutter_gst_build_caps (priv->renderers);
   priv->renderer_state = CLUTTER_GST_RENDERER_STOPPED;
@@ -959,7 +959,7 @@ clutter_gst_video_sink_render (GstBaseSink *bsink,
   priv = sink->priv;
 
 
-  g_mutex_lock (priv->buffer_lock);
+  g_mutex_lock (&priv->buffer_lock);
   if (priv->buffer)
     { 
       gst_buffer_unref (priv->buffer);
@@ -976,7 +976,7 @@ clutter_gst_video_sink_render (GstBaseSink *bsink,
        * callback would be invoked before priv->idle_id had been assigned
        */
     }
-  g_mutex_unlock (priv->buffer_lock);
+  g_mutex_unlock (&priv->buffer_lock);
 
   return GST_FLOW_OK;
 }
@@ -1115,11 +1115,7 @@ clutter_gst_video_sink_dispose (GObject *object)
       priv->texture = NULL;
     }
 
-  if (priv->buffer_lock)
-    {
-      g_mutex_free (priv->buffer_lock);
-      priv->buffer_lock = NULL;
-    }
+  g_mutex_clear (&priv->buffer_lock);
 
   if (priv->caps)
     {
@@ -1200,11 +1196,11 @@ clutter_gst_video_sink_stop (GstBaseSink *base_sink)
   ClutterGstVideoSinkPrivate *priv = sink->priv;
   guint i;
 
-  g_mutex_lock (priv->buffer_lock);
+  g_mutex_lock (&priv->buffer_lock);
   if (priv->buffer)
     gst_buffer_unref (priv->buffer);
   priv->buffer = NULL;
-  g_mutex_unlock (priv->buffer_lock);
+  g_mutex_unlock (&priv->buffer_lock);
 
   priv->renderer_state = CLUTTER_GST_RENDERER_STOPPED;
 

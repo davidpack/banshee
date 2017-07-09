@@ -46,7 +46,7 @@ bp_video_find_video_overlay (BansheePlayer *player)
 
     g_object_get (player->playbin, "video-sink", &video_sink, NULL);
 
-    g_mutex_lock (player->video_mutex);
+    g_mutex_lock (&player->video_mutex);
     previous_video_overlay = player->video_overlay;
 
     if (video_sink == NULL) {
@@ -54,7 +54,7 @@ bp_video_find_video_overlay (BansheePlayer *player)
         if (previous_video_overlay != NULL) {
             gst_object_unref (previous_video_overlay);
         }
-        g_mutex_unlock (player->video_mutex);
+        g_mutex_unlock (&player->video_mutex);
         return FALSE;
     }
    
@@ -83,7 +83,7 @@ bp_video_find_video_overlay (BansheePlayer *player)
     gst_object_unref (video_sink);
     found_video_overlay = (player->video_overlay != NULL) ? TRUE : FALSE;
 
-    g_mutex_unlock (player->video_mutex);
+    g_mutex_unlock (&player->video_mutex);
     return found_video_overlay;
 }
 
