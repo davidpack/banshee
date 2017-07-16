@@ -32,7 +32,6 @@ AM_MAINTAINER_MODE([enable])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([build/m4 build/m4/shamrock build/m4/banshee build/m4/shave])
 
-IT_PROG_INTLTOOL([0.35.0])
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 
@@ -64,7 +63,7 @@ SHAMROCK_CHECK_MONO_4_5_GAC_ASSEMBLIES([
 	ICSharpCode.SharpZipLib
 ])
 
-BANSHEE_DESKTOP_NAME="_Name=Banshee"
+BANSHEE_DESKTOP_NAME="Name=Banshee"
 AC_SUBST(BANSHEE_DESKTOP_NAME)
 
 dnl Required dependencies (managed/core)
@@ -148,6 +147,9 @@ BANSHEE_CHECK_BOO
 
 dnl i18n
 SHAMROCK_CONFIGURE_I18N($PACKAGE)
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
+AM_GNU_GETTEXT_REQUIRE_VERSION([0.19.8])
 
 AC_ARG_ENABLE(release,
 	AC_HELP_STRING([--enable-release],

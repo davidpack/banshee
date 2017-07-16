@@ -155,17 +155,11 @@ package-po: check-since
 	fi
 
 EXTRA_DIST = \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in \
 	autogen.sh \
 	AUTHORS \
 	HACKING
 
-CLEANFILES = \
-	intltool-extract \
-	intltool-update \
-	intltool-merge
+CLEANFILES =
 
 DISTCLEANFILES = \
 	*.bak \
@@ -185,9 +179,6 @@ MAINTAINERCLEANFILES = \
 	configure \
 	config.sub \
 	config.guess \
-	intltool-extract.in \
-	intltool-merge.in   \
-	intltool-update.in  \
 	mkinstalldirs
 
 ACLOCAL_AMFLAGS = -I build/m4
