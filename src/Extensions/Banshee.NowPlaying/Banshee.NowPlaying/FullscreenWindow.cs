@@ -56,16 +56,6 @@ namespace Banshee.NowPlaying
             SetupWidget ();
         }
 
-        protected override bool OnDrawn (Cairo.Context cr)
-        {
-            cr.Save ();
-            cr.SetSourceRGB (0.0, 0.0, 0.0);
-            cr.Rectangle (0, 0, Allocation.Width, Allocation.Height);
-            cr.Fill ();
-            cr.Restore ();
-            return base.OnDrawn (cr);
-        }
-
         protected override bool OnKeyPressEvent (Gdk.EventKey evnt)
         {
             PlayerEngineService player = ServiceManager.PlayerEngine;
@@ -185,8 +175,8 @@ namespace Banshee.NowPlaying
 
         protected override void OnUnrealized ()
         {
-            base.OnUnrealized ();
             Screen.SizeChanged -= OnScreenSizeChanged;
+            base.OnUnrealized ();
         }
 
         protected override bool OnDeleteEvent (Gdk.Event evnt)
@@ -198,9 +188,6 @@ namespace Banshee.NowPlaying
         protected override void OnShown ()
         {
             base.OnShown ();
-            if (Child != null) {
-                Child.Show ();
-            }
 
             OnHideCursorTimeout ();
             ConfigureWindow ();
@@ -210,8 +197,8 @@ namespace Banshee.NowPlaying
 
         protected override void OnHidden ()
         {
-            base.OnHidden ();
             DestroyControls ();
+            base.OnHidden ();
         }
 
         private void OnScreenSizeChanged (object o, EventArgs args)
@@ -221,15 +208,9 @@ namespace Banshee.NowPlaying
 
         private void ParentActiveNotification (object o, GLib.NotifyArgs args)
         {
-            // If our parent window is ever somehow activated while we are
-            // visible, this will ensure we merge back into the parent
             if (parent.IsActive) {
-                parent.Window.SkipPagerHint = false;
-                parent.Window.SkipTaskbarHint = false;
+                Hide ();
                 parent.RemoveNotification ("is-active", ParentActiveNotification);
-            } else {
-                parent.Window.SkipPagerHint = true;
-                parent.Window.SkipTaskbarHint = true;
             }
         }
 
@@ -295,7 +276,17 @@ namespace Banshee.NowPlaying
         private uint cursor_update_position_timeout_id;
         private int hide_cursor_x;
         private int hide_cursor_y;
-        private bool cursor_is_hidden = false;
+        
+        private bool cursor_is_hidden {
+            get {
+                switch (Window.Cursor?.CursorType) {
+                    case Gdk.CursorType.BlankCursor:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        }
 
         protected override bool OnMotionNotifyEvent (Gdk.EventMotion evnt)
         {
@@ -348,7 +339,6 @@ namespace Banshee.NowPlaying
 
         private void ShowCursor ()
         {
-            cursor_is_hidden = false;
             Window.Cursor = null;
         }
 

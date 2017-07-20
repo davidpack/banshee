@@ -77,10 +77,6 @@ namespace Banshee.NowPlaying
                 return true;
             }
 
-            if (!is_idle && ServiceManager.PlayerEngine.VideoDisplayContextType != VideoDisplayContextType.Unsupported) {
-                ExposeVideo ();
-            }
-
             return true;
         }
 
@@ -103,14 +99,6 @@ namespace Banshee.NowPlaying
             EventHandler handler = IdleStateChanged;
             if (handler != null) {
                 handler (this, EventArgs.Empty);
-            }
-        }
-
-        public new void QueueDraw ()
-        {
-            base.QueueDraw ();
-            if (RenderWindow != null) {
-                RenderWindow.InvalidateRect (new Gdk.Rectangle (0, 0, Allocation.Width, Allocation.Height), true);
             }
         }
     }

@@ -47,23 +47,39 @@ namespace Banshee.NowPlaying
             CreateVideoWindow ();
         }
 
-        protected override void OnRealized ()
+        internal void SetVideoContext ()
         {
-            IsRealized = true;
-            CreateVideoWindow ();
-            Window = Parent.Window;
-            video_window.Reparent (Window, 0, 0);
-            video_window.MoveResize (Allocation.X, Allocation.Y, Allocation.Width, Allocation.Height);
-            video_window.ShowUnraised ();
+            if (ServiceManager.PlayerEngine.VideoDisplayContextType == VideoDisplayContextType.GdkWindow) {
+                ServiceManager.PlayerEngine.VideoDisplayContext = video_window.Handle;
+                ServiceManager.PlayerEngine.VideoWindowRealize (video_window.Handle);
+            } else {
+                ServiceManager.PlayerEngine.VideoDisplayContext = IntPtr.Zero;
+            }
         }
 
-        private void CreateVideoWindow ()
+        protected override void OnRealized ()
+        {
+            base.OnRealized ();
+
+            SetVideoContext ();
+
+            video_window.Reparent (Parent.Window, 0, 0);
+        }
+
+        protected override void OnUnrealized ()
+        {
+            video_window.Reparent (null, 0, 0);
+
+            base.OnUnrealized ();
+        }
+
+        protected void CreateVideoWindow ()
         {
             if (video_window != null) {
                 return;
             }
 
-            var attributes = new Gdk.WindowAttr () {
+            var attributes = new Gdk.WindowAttr {
                 WindowType = Gdk.WindowType.Child,
                 X = 0,
                 Y = 0,
@@ -81,23 +97,6 @@ namespace Banshee.NowPlaying
 
             video_window = new Gdk.Window (null, attributes, attributes_mask);
             video_window.UserData = Handle;
-
-            video_window.BackgroundPattern = null;
-
-            if (ServiceManager.PlayerEngine.VideoDisplayContextType == VideoDisplayContextType.GdkWindow) {
-                ServiceManager.PlayerEngine.VideoDisplayContext = video_window.Handle;
-                ServiceManager.PlayerEngine.VideoWindowRealize (video_window.Handle);
-            } else {
-                ServiceManager.PlayerEngine.VideoDisplayContext = IntPtr.Zero;
-            }
-        }
-
-        protected override void OnUnrealized ()
-        {
-            video_window.Hide ();
-            video_window.Reparent (null, 0, 0);
-
-            base.OnUnrealized ();
         }
 
         protected override void OnMapped ()
@@ -118,18 +117,15 @@ namespace Banshee.NowPlaying
                 return;
             }
 
-            Gdk.Rectangle rect = new Gdk.Rectangle (allocation.X, allocation.Y, allocation.Width, allocation.Height);
-            video_window.MoveResize (rect);
+            video_window.MoveResize (allocation);
 
             base.OnSizeAllocated (allocation);
-
-            QueueDraw ();
         }
 
         protected override bool OnConfigureEvent (Gdk.EventConfigure evnt)
         {
-            if (video_window != null && ServiceManager.PlayerEngine.VideoDisplayContextType == VideoDisplayContextType.GdkWindow) {
-                ServiceManager.PlayerEngine.VideoExpose (video_window.Handle, true);
+            if (evnt.Type == Gdk.EventType.Expose) {
+                ExposeVideo ();
             }
 
             return false;
@@ -137,6 +133,10 @@ namespace Banshee.NowPlaying
 
         protected override void ExposeVideo ()
         {
+            if (null == video_window) {
+                return;
+            }
+
             if (ServiceManager.PlayerEngine.VideoDisplayContextType == VideoDisplayContextType.GdkWindow) {
                 ServiceManager.PlayerEngine.VideoExpose (video_window.Handle, true);
             }

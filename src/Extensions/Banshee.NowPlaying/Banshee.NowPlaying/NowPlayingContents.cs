@@ -38,7 +38,7 @@ namespace Banshee.NowPlaying
 {
     public class NowPlayingContents : Table, IDisposable
     {
-        private static Widget video_display;
+        private static XOverlayVideoDisplay video_display;
 
         public static void CreateVideoDisplay ()
         {
@@ -47,8 +47,11 @@ namespace Banshee.NowPlaying
             }
         }
 
-        private Widget substitute_audio_display;
-        private bool video_display_initial_shown = false;
+        public static void SetVideoContext ()
+        {
+            video_display.SetVideoContext ();
+        }
+
         private EventBox video_event;
 
         private TrackInfoDisplay track_info_display;
@@ -76,10 +79,7 @@ namespace Banshee.NowPlaying
             video_event.MotionNotifyEvent += OnMouseMove;
             video_event.KeyPressEvent += OnKeyPress;
 
-            IVideoDisplay ivideo_display = video_display as IVideoDisplay;
-            if (ivideo_display != null) {
-                ivideo_display.IdleStateChanged += OnVideoDisplayIdleStateChanged;
-            }
+            video_display.IdleStateChanged += OnVideoDisplayIdleStateChanged;
 
             Attach (video_event, 0, 1, 0, 1,
                 AttachOptions.Expand | AttachOptions.Fill,
@@ -90,23 +90,6 @@ namespace Banshee.NowPlaying
                 AttachOptions.Expand | AttachOptions.Fill,
                 AttachOptions.Expand | AttachOptions.Fill, 0, 0);
 
-            video_event.ShowAll ();
-        }
-        
-        internal void SetSubstituteAudioDisplay (Widget widget)
-        {
-            if (substitute_audio_display != null) {
-                Remove (substitute_audio_display);
-            }
-            
-            substitute_audio_display = widget;
-            
-            if (widget != null) {
-	            Attach (widget, 0, 1, 0, 1,
-	                AttachOptions.Expand | AttachOptions.Fill,
-	                AttachOptions.Expand | AttachOptions.Fill, 0, 0);
-            }
-            
             CheckIdle ();
         }
 
@@ -118,14 +101,9 @@ namespace Banshee.NowPlaying
                 video_event.MotionNotifyEvent -= OnMouseMove;
                 video_event.KeyPressEvent -= OnKeyPress;
 
-                IVideoDisplay ivideo_display = video_display as IVideoDisplay;
-                if (ivideo_display != null) {
-                    ivideo_display.IdleStateChanged -= OnVideoDisplayIdleStateChanged;
-                }
+                video_display.IdleStateChanged -= OnVideoDisplayIdleStateChanged;
 
-                if (video_display != null) {
-                    video_display = null;
-                }
+                video_display = null;
             }
 
             base.Dispose (disposing);
@@ -135,39 +113,14 @@ namespace Banshee.NowPlaying
         {
             base.OnShown ();
             video_event.GrabFocus ();
-            // Ugly hack to ensure the video window is mapped/realized
-            if (!video_display_initial_shown) {
-                video_display_initial_shown = true;
-
-                if (video_display != null) {
-                    video_display.Show ();
-                }
-
-                GLib.Idle.Add (delegate {
-                    CheckIdle ();
-                    return false;
-                });
-                return;
-            }
-
-            CheckIdle ();
-        }
-
-        protected override void OnHidden ()
-        {
-            base.OnHidden ();
-            video_display.Hide ();
         }
 
         private void CheckIdle ()
         {
-            IVideoDisplay ivideo_display = video_display as IVideoDisplay;
-            if (ivideo_display != null) {
-                video_display.Visible = !ivideo_display.IsIdle;
-            }
-            
-            track_info_display.Visible = false;
-            (substitute_audio_display ?? track_info_display).Visible = ivideo_display.IsIdle;
+            Log.Debug ("Contents.CheckIdle ()");
+
+            video_event.Visible = video_display.Visible = !video_display.IsIdle;
+            track_info_display.Visible = !video_event.Visible;
         }
 
         private void OnVideoDisplayIdleStateChanged (object o, EventArgs args)

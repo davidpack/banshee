@@ -44,8 +44,6 @@ namespace Banshee.NowPlaying
     {
         private TrackInfo transitioned_track;
         private NowPlayingInterface now_playing_interface;
-        
-        private Widget substitute_audio_display;
 
         public NowPlayingSource () : base ("now-playing", Catalog.GetString ("Now Playing"), 10, "now-playing")
         {
@@ -68,6 +66,9 @@ namespace Banshee.NowPlaying
             Properties.Set<bool> ("Nereid.SimpleUI", simplified_conf.Get ());
             Properties.Set<BansheeActionGroup> ("ActiveSourceActions", actions);
 
+            now_playing_interface = new NowPlayingInterface ();
+            Properties.Set<ISourceContents> ("Nereid.SourceContents", now_playing_interface);
+
             ServiceManager.SourceManager.AddSource (this);
 
             ServiceManager.PlaybackController.Transition += OnPlaybackControllerTransition;
@@ -79,7 +80,7 @@ namespace Banshee.NowPlaying
         private void OnCreateVideoWindow (PlayerEventArgs args)
         {
             ServiceManager.PlayerEngine.DisconnectEvent (OnCreateVideoWindow);
-            NowPlayingContents.CreateVideoDisplay ();
+            NowPlayingContents.SetVideoContext ();
         }
 
         public void Dispose ()
@@ -123,26 +124,12 @@ namespace Banshee.NowPlaying
                 OnUserNotifyUpdated ();
             }
         }
-        
-        public void SetSubstituteAudioDisplay (Widget widget)
-        {
-            if (now_playing_interface != null) {
-                now_playing_interface.Contents.SetSubstituteAudioDisplay (widget);
-            } else {
-                substitute_audio_display = widget;
-            }
-        }
 
         public override void Activate ()
         {
             if (now_playing_interface == null) {
                 now_playing_interface = new NowPlayingInterface ();
                 Properties.Set<ISourceContents> ("Nereid.SourceContents", now_playing_interface);
-                
-                if (substitute_audio_display != null) {
-                    now_playing_interface.Contents.SetSubstituteAudioDisplay (substitute_audio_display);
-                    substitute_audio_display = null;
-                }
             }
 
             if (now_playing_interface != null) {
