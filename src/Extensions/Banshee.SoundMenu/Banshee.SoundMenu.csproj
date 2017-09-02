@@ -87,5 +87,9 @@
       <Project>{2ADB831A-A050-47D0-B6B9-9C19D60233BB}</Project>
       <Name>Banshee.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Notifications\Notifications.csproj">
+      <Project>{A9468999-D9F1-4CA3-8CEB-71E520BED921}</Project>
+      <Name>Notifications</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
