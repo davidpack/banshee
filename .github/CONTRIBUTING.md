@@ -141,6 +141,31 @@ var compare = (a + b * c) != (d - e * f);
 
       `camelCaseWord`
 
+  15. Simple Branches:
+
+```C#
+if (condition) {
+    ...
+} else if (condition) {
+    ...
+} else {
+    ...
+}
+```
+
+  16. Switches:
+
+```C#
+switch (value) {
+    case 1:
+        ...
+        break;
+    default:
+        ...
+        break;
+}
+```
+
 
 .NET API Naming Guidelines
 ==========================
