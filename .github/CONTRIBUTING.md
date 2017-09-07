@@ -166,6 +166,15 @@ switch (value) {
 }
 ```
 
+  17. Member order should almost always be:
+
+    - fields;
+    - constructors;
+    - properties;
+    - methods.
+
+  18. Static members should almost always precede instance members.
+
 
 .NET API Naming Guidelines
 ==========================
