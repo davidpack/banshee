@@ -189,3 +189,5 @@ MAINTAINERCLEANFILES = \
 	intltool-merge.in   \
 	intltool-update.in  \
 	mkinstalldirs
+
+ACLOCAL_AMFLAGS = -I build/m4

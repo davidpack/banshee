@@ -30,8 +30,7 @@ AC_INIT([banshee], banshee_version, [http://bugzilla.gnome.org/enter_bug.cgi?pro
 AM_INIT_AUTOMAKE([1.10 no-dist-gzip dist-bzip2 tar-ustar foreign])
 AM_MAINTAINER_MODE([enable])
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_MACRO_DIR([build/m4])
-AC_SUBST([ACLOCAL_AMFLAGS], ["-I build/m4/shamrock -I build/m4/banshee -I build/m4/shave \${ACLOCAL_FLAGS}"])
+AC_CONFIG_MACRO_DIRS([build/m4 build/m4/shamrock build/m4/banshee build/m4/shave])
 
 IT_PROG_INTLTOOL([0.35.0])
 AC_PROG_LIBTOOL

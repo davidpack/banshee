@@ -46,4 +46,5 @@ else
 include $(top_srcdir)/build/build.dist.mk
 endif
 
-MAINTAINERCLEANFILES = Makefile.in
+MAINTAINERCLEANFILES += Makefile.in
+

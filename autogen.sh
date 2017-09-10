@@ -53,6 +53,12 @@ test -z "$srcdir" && srcdir=.
 	error "Directory \"$srcdir\" does not look like the top-level $PROJECT directory"
 }
 
+echo '/*
+ * NOTE: This script is deprecated.
+ *
+ * Please use autoreconf -fvi instead
+ */'
+
 builddir=`pwd`
 cd "$srcdir"
 
