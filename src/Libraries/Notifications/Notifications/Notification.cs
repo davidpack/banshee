@@ -142,7 +142,7 @@ namespace Notifications
                 summary = value;
                 Update ();
             }
-            get => summary;
+            get { return summary; }
         }
 
         public string Body {
@@ -150,7 +150,7 @@ namespace Notifications
                 body = value;
                 Update ();
             }
-            get => body;
+            get { return body; }
         }
 
         public int Timeout {
@@ -158,7 +158,7 @@ namespace Notifications
                 timeout = value;
                 Update ();
             }
-            get => timeout;
+            get { return timeout; }
         }
 
         public Urgency Urgency {
@@ -166,7 +166,7 @@ namespace Notifications
                 hints["urgency"] = (byte) value;
                 Update ();
             }
-            get => hints.ContainsKey ("urgency") ? (Urgency) hints["urgency"] : Urgency.Normal;
+            get { return hints.ContainsKey ("urgency") ? (Urgency) hints["urgency"] : Urgency.Normal; }
         }
 
         public string Category {
@@ -174,7 +174,7 @@ namespace Notifications
                 hints["category"] = value;
                 Update ();
             }
-            get => hints.ContainsKey ("category") ? (string) hints["category"] : string.Empty;
+            get { return hints.ContainsKey ("category") ? (string) hints["category"] : string.Empty; }
         }
 
         public Pixbuf Icon {
@@ -196,13 +196,13 @@ namespace Notifications
         public uint Id { get; private set; }
 
         public Widget AttachWidget {
-            get => attach_widget;
-            set => AttachToWidget (value);
+            get { return attach_widget; }
+            set { AttachToWidget (value); }
         }
 
         public StatusIcon StatusIcon {
-            get => status_icon;
-            set => AttachToStatusIcon (value);
+            get { return status_icon; }
+            set { AttachToStatusIcon (value); }
         }
 
         public event EventHandler Closed;
@@ -316,7 +316,11 @@ namespace Notifications
             if (Id == id) {
                 Id = 0;
                 shown = false;
-                Closed?.Invoke (this, new CloseArgs ((CloseReason) reason));
+                var h = Closed;
+                if (null != h)
+                {
+                    h.Invoke (this, new CloseArgs ((CloseReason) reason));
+                }
             }
         }
 

@@ -85,8 +85,14 @@ namespace Notifications
             }
         }
 
-        public static string[] Capabilities => DBusObject.GetCapabilities ();
+        public static string[] Capabilities
+        {
+            get { return DBusObject.GetCapabilities (); }
+        }
 
-        public static ServerInformation ServerInformation => DBusObject.GetServerInformation ();
+        public static ServerInformation ServerInformation
+        {
+            get { return DBusObject.GetServerInformation (); }
+        }
     }
 }
