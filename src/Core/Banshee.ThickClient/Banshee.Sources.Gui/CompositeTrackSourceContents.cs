@@ -298,14 +298,6 @@ namespace Banshee.Sources.Gui
             }
         }
 
-        public void SetModels (TrackListModel track, IListModel<ArtistInfo> artist, IListModel<AlbumInfo> album, IListModel<QueryFilterInfo<string>> genre)
-        {
-            SetModel (track);
-            SetModel (artist);
-            SetModel (album);
-            SetModel (genre);
-        }
-
         IListView<TrackInfo> ITrackModelSourceContents.TrackView {
             get { return track_view; }
         }
@@ -357,8 +349,8 @@ namespace Banshee.Sources.Gui
                         genre_view_model_set = true;
                     } else if (model is DatabaseYearListModel)
                         SetModel (year_view, model as IListModel<YearInfo>);
-                    // else
-                    //    Hyena.Log.DebugFormat ("CompositeTrackSourceContents got non-album/artist filter model: {0}", model);
+                    else
+                        Hyena.Log.DebugFormat ("CompositeTrackSourceContents got non-album/artist filter model: {0}", model);
                 }
             }
 

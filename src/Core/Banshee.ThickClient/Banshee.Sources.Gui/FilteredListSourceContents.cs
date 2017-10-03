@@ -225,7 +225,6 @@ namespace Banshee.Sources.Gui
 
         private void Layout (bool top)
         {
-            //Hyena.Log.Information ("ListBrowser LayoutLeft");
             Reset ();
 
             SchemaEntry<int> current_entry = top ? pane_top_position : pane_left_position;
@@ -297,7 +296,6 @@ namespace Banshee.Sources.Gui
 
         private void OnViewModeChanged (object o, ChangedArgs args)
         {
-            //Hyena.Log.InformationFormat ("ListBrowser mode toggled, val = {0}", args.Current.Value);
             if (args.Current.Value == 0) {
                 LayoutLeft ();
                 BrowserPosition.Set ("left");
