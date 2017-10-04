@@ -384,7 +384,13 @@ namespace Banshee.Sources.Gui
 
         protected ISource source;
 
-        public abstract bool SetSource (ISource source);
+        public virtual bool SetSource (ISource source)
+        {
+            this.source = source;
+
+            browser_container.Visible = ForcePosition != null || ActiveSourceCanHasBrowser && BrowserVisible.Get ();
+            return true;
+        }
 
         public abstract void ResetSource ();
 

@@ -312,11 +312,11 @@ namespace Banshee.Sources.Gui
 
         protected override bool ActiveSourceCanHasBrowser {
             get {
-                if (!(ServiceManager.SourceManager.ActiveSource is ITrackModelSource)) {
+                if (null == source) {
                     return false;
                 }
 
-                return ((ITrackModelSource)ServiceManager.SourceManager.ActiveSource).ShowBrowser;
+                return ((ITrackModelSource) source).ShowBrowser;
             }
         }
 
@@ -330,7 +330,7 @@ namespace Banshee.Sources.Gui
                 return false;
             }
 
-            this.source = source;
+            base.SetSource (source);
 
             SetModel (track_view, track_source.TrackModel);
 
@@ -353,6 +353,8 @@ namespace Banshee.Sources.Gui
                         Hyena.Log.DebugFormat ("CompositeTrackSourceContents got non-album/artist filter model: {0}", model);
                 }
             }
+
+            ClearFilterSelections ();
 
             track_view.HeaderVisible = true;
             return true;
