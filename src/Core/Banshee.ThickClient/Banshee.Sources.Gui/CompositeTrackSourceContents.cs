@@ -100,6 +100,13 @@ namespace Banshee.Sources.Gui
             </ui>
         ";
 
+        static void ParentVisible (Widget widget, bool visible)
+        {
+            if (null == widget.Parent) return;
+
+            widget.Parent.Visible = visible;
+        }
+
         public CompositeTrackSourceContents () : base (name, PaneTopPosition, PaneLeftPosition)
         {
             if (ServiceManager.Contains ("InterfaceActionService")) {
@@ -247,32 +254,38 @@ namespace Banshee.Sources.Gui
             SetupMainView (track_view = new TrackListView ());
 
             SetupFilterView (genre_view = new QueryFilterView<string> (Catalog.GetString ("Not Set")));
-            Widget genre_view_widget = (Widget)genre_view;
-            genre_view_widget.Parent.Shown += delegate {
-                genre_view_widget.Parent.Visible = GenreFilterVisible.Get ();
-            };
 
             artist_view = new ArtistListView ();
             albumartist_view = new ArtistListView ();
+
             if (ArtistFilterType.Get ().Equals ("artist")) {
                 SetupFilterView (artist_view);
-                artist_view.Parent.Shown += delegate {
-                    artist_view.Parent.Visible = ArtistFilterVisible.Get ();
-                };
             } else {
                 SetupFilterView (albumartist_view);
-                albumartist_view.Parent.Shown += delegate {
-                    albumartist_view.Parent.Visible = ArtistFilterVisible.Get ();
-                };
             }
 
             SetupFilterView (year_view = new YearListView ());
-            Widget year_view_widget = (Widget)year_view;
-            year_view_widget.Parent.Shown += delegate {
-                year_view_widget.Parent.Visible = YearFilterVisible.Get ();
-            };
-
             SetupFilterView (album_view = new AlbumListView ());
+        }
+
+        protected override void OnShown ()
+        {
+            base.OnShown ();
+
+            ParentVisible(genre_view, GenreFilterVisible.Get ());
+
+            switch (ArtistFilterType.Get ()) {
+                case "artist":
+                    ParentVisible(artist_view, ArtistFilterVisible.Get ());
+                    ParentVisible(albumartist_view, false);
+                    break;
+                case "albumartist":
+                    ParentVisible (albumartist_view, ArtistFilterVisible.Get ());
+                    ParentVisible (artist_view, false);
+                    break;
+            }
+
+            ParentVisible(year_view, YearFilterVisible.Get ());
         }
 
         protected override void ClearFilterSelections ()

@@ -138,16 +138,17 @@ namespace Banshee.Sources.Gui
                 action_service.FindAction("BrowserView.BrowserVisibleAction").Activated += OnToggleBrowser;
             }
 
-            ServiceManager.SourceManager.ActiveSourceChanged += delegate {
-                ThreadAssist.ProxyToMain (delegate {
-                    browser_container.Visible = ActiveSourceCanHasBrowser ? BrowserVisible.Get () : false;
-                });
-            };
-
             NoShowAll = true;
         }
 
         protected abstract void InitializeViews ();
+
+        protected override void OnShown ()
+        {
+            base.OnShown ();
+
+            browser_container.Visible = ActiveSourceCanHasBrowser && BrowserVisible.Get ();
+        }
 
         protected void SetupMainView<T> (ListView<T> main_view)
         {
