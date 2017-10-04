@@ -109,58 +109,56 @@ namespace Banshee.Sources.Gui
 
         public CompositeTrackSourceContents () : base (name, PaneTopPosition, PaneLeftPosition)
         {
-            if (ServiceManager.Contains ("InterfaceActionService")) {
-                action_service = ServiceManager.Get<InterfaceActionService> ();
+            action_service = ServiceManager.Get<InterfaceActionService> ();
 
-                if (action_service.FindActionGroup ("BrowserConfiguration") == null) {
-                    configure_browser_actions = new ActionGroup ("BrowserConfiguration");
+            if (action_service.FindActionGroup ("BrowserConfiguration") == null) {
+                configure_browser_actions = new ActionGroup ("BrowserConfiguration");
 
-                    configure_browser_actions.Add (new ActionEntry [] {
-                        new ActionEntry ("BrowserContentMenuAction", null,
-                            Catalog.GetString ("Browser Content"), null,
-                            Catalog.GetString ("Configure the filters available in the browser"), null)
-                    });
+                configure_browser_actions.Add (new ActionEntry [] {
+                    new ActionEntry ("BrowserContentMenuAction", null,
+                        Catalog.GetString ("Browser Content"), null,
+                        Catalog.GetString ("Configure the filters available in the browser"), null)
+                });
 
-                    configure_browser_actions.Add (new ToggleActionEntry [] {
-                        new ToggleActionEntry ("ShowArtistFilterAction", null,
-                            Catalog.GetString ("Show Artist Filter"), null,
-                            Catalog.GetString ("Show a list of artists to filter by"), null, ArtistFilterVisible.Get ())});
+                configure_browser_actions.Add (new ToggleActionEntry [] {
+                    new ToggleActionEntry ("ShowArtistFilterAction", null,
+                        Catalog.GetString ("Show Artist Filter"), null,
+                        Catalog.GetString ("Show a list of artists to filter by"), null, ArtistFilterVisible.Get ())});
 
-                    configure_browser_actions.Add (new RadioActionEntry [] {
-                        new RadioActionEntry ("ShowTrackArtistFilterAction", null,
-                            Catalog.GetString ("Show all Artists"), null,
-                            Catalog.GetString ("Show all artists in the artist filter"), 0),
+                configure_browser_actions.Add (new RadioActionEntry [] {
+                    new RadioActionEntry ("ShowTrackArtistFilterAction", null,
+                        Catalog.GetString ("Show all Artists"), null,
+                        Catalog.GetString ("Show all artists in the artist filter"), 0),
 
-                        new RadioActionEntry ("ShowAlbumArtistFilterAction", null,
-                            Catalog.GetString ("Show Album Artists"), null,
-                            Catalog.GetString ("Show only album artists, not artists with only single tracks"), 1),
-                    }, ArtistFilterType.Get ().Equals ("artist") ? 0 : 1 , null);
+                    new RadioActionEntry ("ShowAlbumArtistFilterAction", null,
+                        Catalog.GetString ("Show Album Artists"), null,
+                        Catalog.GetString ("Show only album artists, not artists with only single tracks"), 1),
+                }, ArtistFilterType.Get ().Equals ("artist") ? 0 : 1 , null);
 
-                    configure_browser_actions.Add (new ToggleActionEntry [] {
-                        new ToggleActionEntry ("ShowGenreFilterAction", null,
-                            Catalog.GetString ("Show Genre Filter"), null,
-                            Catalog.GetString ("Show a list of genres to filter by"), null, GenreFilterVisible.Get ())});
+                configure_browser_actions.Add (new ToggleActionEntry [] {
+                    new ToggleActionEntry ("ShowGenreFilterAction", null,
+                        Catalog.GetString ("Show Genre Filter"), null,
+                        Catalog.GetString ("Show a list of genres to filter by"), null, GenreFilterVisible.Get ())});
 
-                    configure_browser_actions.Add (new ToggleActionEntry [] {
-                        new ToggleActionEntry ("ShowYearFilterAction", null,
-                            Catalog.GetString ("Show Year Filter"), null,
-                            Catalog.GetString ("Show a list of years to filter by"), null, YearFilterVisible.Get ())});
+                configure_browser_actions.Add (new ToggleActionEntry [] {
+                    new ToggleActionEntry ("ShowYearFilterAction", null,
+                        Catalog.GetString ("Show Year Filter"), null,
+                        Catalog.GetString ("Show a list of years to filter by"), null, YearFilterVisible.Get ())});
 
-                    action_service.AddActionGroup (configure_browser_actions);
-                    action_service.UIManager.AddUiFromString (menu_xml);
-                }
-
-                action_service.FindAction("BrowserConfiguration.ShowArtistFilterAction").Activated += OnArtistFilterVisibilityChanged;
-                action_service.FindAction("BrowserConfiguration.ShowGenreFilterAction").Activated += OnGenreFilterChanged;;
-                action_service.FindAction("BrowserConfiguration.ShowYearFilterAction").Activated += OnYearFilterChanged;;
-
-                var artist_filter_action = action_service.FindAction("BrowserConfiguration.ShowTrackArtistFilterAction") as RadioAction;
-                var albumartist_filter_action = action_service.FindAction("BrowserConfiguration.ShowAlbumArtistFilterAction") as RadioAction;
-                artist_filter_action.Changed += OnArtistFilterChanged;
-                artist_filter_action.Sensitive = ArtistFilterVisible.Get ();
-                albumartist_filter_action.Changed += OnArtistFilterChanged;
-                albumartist_filter_action.Sensitive = ArtistFilterVisible.Get ();
+                action_service.AddActionGroup (configure_browser_actions);
+                action_service.UIManager.AddUiFromString (menu_xml);
             }
+
+            action_service.FindAction("BrowserConfiguration.ShowArtistFilterAction").Activated += OnArtistFilterVisibilityChanged;
+            action_service.FindAction("BrowserConfiguration.ShowGenreFilterAction").Activated += OnGenreFilterChanged;;
+            action_service.FindAction("BrowserConfiguration.ShowYearFilterAction").Activated += OnYearFilterChanged;;
+
+            var artist_filter_action = action_service.FindAction("BrowserConfiguration.ShowTrackArtistFilterAction") as RadioAction;
+            var albumartist_filter_action = action_service.FindAction("BrowserConfiguration.ShowAlbumArtistFilterAction") as RadioAction;
+            artist_filter_action.Changed += OnArtistFilterChanged;
+            artist_filter_action.Sensitive = ArtistFilterVisible.Get ();
+            albumartist_filter_action.Changed += OnArtistFilterChanged;
+            albumartist_filter_action.Sensitive = ArtistFilterVisible.Get ();
         }
 
         private void OnArtistFilterVisibilityChanged (object o, EventArgs args)

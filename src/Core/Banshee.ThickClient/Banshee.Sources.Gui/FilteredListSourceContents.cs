@@ -105,38 +105,36 @@ namespace Banshee.Sources.Gui
                 return;
             }
 
-            if (ServiceManager.Contains ("InterfaceActionService")) {
-                action_service = ServiceManager.Get<InterfaceActionService> ();
+            action_service = ServiceManager.Get<InterfaceActionService> ();
 
-                if (action_service.FindActionGroup ("BrowserView") == null) {
-                    browser_view_actions = new ActionGroup ("BrowserView");
+            if (action_service.FindActionGroup ("BrowserView") == null) {
+                browser_view_actions = new ActionGroup ("BrowserView");
 
-                    browser_view_actions.Add (new RadioActionEntry [] {
-                        new RadioActionEntry ("BrowserLeftAction", null,
-                            Catalog.GetString ("Browser on Left"), null,
-                            Catalog.GetString ("Show the artist/album browser to the left of the track list"), 0),
+                browser_view_actions.Add (new RadioActionEntry [] {
+                    new RadioActionEntry ("BrowserLeftAction", null,
+                        Catalog.GetString ("Browser on Left"), null,
+                        Catalog.GetString ("Show the artist/album browser to the left of the track list"), 0),
 
-                        new RadioActionEntry ("BrowserTopAction", null,
-                            Catalog.GetString ("Browser on Top"), null,
-                            Catalog.GetString ("Show the artist/album browser above the track list"), 1),
-                    }, position == "top" ? 1 : 0, null);
+                    new RadioActionEntry ("BrowserTopAction", null,
+                        Catalog.GetString ("Browser on Top"), null,
+                        Catalog.GetString ("Show the artist/album browser above the track list"), 1),
+                }, position == "top" ? 1 : 0, null);
 
-                    browser_view_actions.Add (new ToggleActionEntry [] {
-                        new ToggleActionEntry ("BrowserVisibleAction", null,
-                            Catalog.GetString ("Show Browser"), "<control>B",
-                            Catalog.GetString ("Show or hide the artist/album browser"),
-                            null, BrowserVisible.Get ())
-                    });
+                browser_view_actions.Add (new ToggleActionEntry [] {
+                    new ToggleActionEntry ("BrowserVisibleAction", null,
+                        Catalog.GetString ("Show Browser"), "<control>B",
+                        Catalog.GetString ("Show or hide the artist/album browser"),
+                        null, BrowserVisible.Get ())
+                });
 
-                    action_service.AddActionGroup (browser_view_actions);
-                    //action_merge_id = action_service.UIManager.NewMergeId ();
-                    action_service.UIManager.AddUiFromString (menu_xml);
-                }
-
-                (action_service.FindAction("BrowserView.BrowserLeftAction") as RadioAction).Changed += OnViewModeChanged;
-                (action_service.FindAction("BrowserView.BrowserTopAction") as RadioAction).Changed += OnViewModeChanged;
-                action_service.FindAction("BrowserView.BrowserVisibleAction").Activated += OnToggleBrowser;
+                action_service.AddActionGroup (browser_view_actions);
+                //action_merge_id = action_service.UIManager.NewMergeId ();
+                action_service.UIManager.AddUiFromString (menu_xml);
             }
+
+            (action_service.FindAction("BrowserView.BrowserLeftAction") as RadioAction).Changed += OnViewModeChanged;
+            (action_service.FindAction("BrowserView.BrowserTopAction") as RadioAction).Changed += OnViewModeChanged;
+            action_service.FindAction("BrowserView.BrowserVisibleAction").Activated += OnToggleBrowser;
 
             NoShowAll = true;
         }
