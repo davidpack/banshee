@@ -272,17 +272,13 @@ namespace Banshee.Collection.Database
                 cache.SaveSelection ();
 
                 List<IFilterListModel> reload_models = new List<IFilterListModel> ();
-                IFilterListModel trigger = null;
-                bool found = false;
-                foreach (IFilterListModel filter in source.CurrentFilters) {
-                    if (found) {
-                        if (filter != null) {
-                            reload_models.Add (filter);
-                        }
-                    } else if (filter == reloadTrigger) {
-                        trigger = filter;
-                        found = true;
-                    }
+
+                if (null == reloadTrigger) {
+                    reload_models.AddRange (source.CurrentFilters);
+                } else {
+                    reload_models.AddRange (
+                        source.CurrentFilters.SkipWhile (x => reloadTrigger != x).Skip (1)
+                    );
                 }
 
                 if (reload_models.Count == 0) {
