@@ -80,7 +80,8 @@ namespace Banshee.Collection.Gui
             context.Context.MoveTo (4, ((int)cellHeight - text_height) / 2);
             context.Widget.StyleContext.Save ();
             context.Widget.StyleContext.AddClass ("entry");
-            Cairo.Color color = CairoExtensions.GdkRGBAToCairoColor (context.Widget.StyleContext.GetColor (StateFlags.Selected));
+            Gdk.RGBA rgba = context.Widget.StyleContext.GetColor (context.Selected ? StateFlags.Selected : StateFlags.Normal);
+            Cairo.Color color = CairoExtensions.GdkRGBAToCairoColor (rgba);
             context.Widget.StyleContext.Restore ();
             color.A = (!context.Opaque) ? 0.3 : 1.0;
             context.Context.SetSourceColor (color);
