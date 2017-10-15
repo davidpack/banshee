@@ -45,16 +45,16 @@ AC_DEFUN([_SHAMROCK_CHECK_MONO_GAC_ASSEMBLIES],
 	for asm in $(echo "$*" | cut -d, -f3- | sed 's/\,/ /g')
 	do
 		AC_MSG_CHECKING([for Mono $2 GAC for $asm.dll])
-		libdir="$($PKG_CONFIG --variable=libdir $1)"
-		prefix="$($PKG_CONFIG --variable=prefix $1)"
+		_shamrock_libdir="$($PKG_CONFIG --variable=libdir $1)"
+		_shamrock_prefix="$($PKG_CONFIG --variable=prefix $1)"
 		if test \
-			-e "$libdir/mono/$2/$asm.dll" -o \
-			-e "$prefix/lib/mono/$2/$asm.dll"; \
+			-e "$_shamrock_libdir/mono/$2/$asm.dll" -o \
+			-e "$_shamrock_prefix/lib/mono/$2/$asm.dll"; \
 			then \
 			AC_MSG_RESULT([found])
 		elif test \
-			-e "$libdir/mono/$2-api/$asm.dll" -o \
-			-e "$prefix/lib/mono/$2-api/$asm.dll"; \
+			-e "$_shamrock_libdir/mono/$2-api/$asm.dll" -o \
+			-e "$_shamrock_prefix/lib/mono/$2-api/$asm.dll"; \
 			then \
 			AC_MSG_RESULT([found])
 		else
