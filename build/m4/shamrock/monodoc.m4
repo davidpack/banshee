@@ -14,7 +14,7 @@ AC_DEFUN([SHAMROCK_CHECK_MONODOC],
 			AC_MSG_ERROR([You need to install mdassembler, or pass --disable-docs to configure to skip documentation installation])
 		fi
 
-		DOCDIR=`$PKG_CONFIG monodoc --variable=sourcesdir`
+		DOCDIR=`$PKG_CONFIG monodoc --define-variable=libdir=${libdir} --variable=sourcesdir`
 		AC_SUBST(DOCDIR)
 		AM_CONDITIONAL(BUILD_DOCS, true)
 	else
