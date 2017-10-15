@@ -43,20 +43,28 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="gio-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/gio-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="gtk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/gtk-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="System.Core" />
     <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>glib-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/glib-sharp-3.0/glib-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="gio-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>gio-sharp-3.0</Package>
+    <Reference Include="Mono.Posix">
+      <HintPath>/usr/lib/mono/4.5/Mono.Posix.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Posix" />
-    <Reference Include="gudev-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3565e728cafab25e" />
-    <Reference Include="taglib-sharp, Version=2.1.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="taglib-sharp">
+      <HintPath>/usr/lib/mono/taglib-sharp/taglib-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gudev-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=3565e728cafab25e">
+      <Package>gudev-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gudev-sharp-3.0/gudev-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

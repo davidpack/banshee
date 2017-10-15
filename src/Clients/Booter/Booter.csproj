@@ -33,11 +33,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="dbus-sharp">
-      <HintPath>..\..\..\bin\dbus-sharp.dll</HintPath>
+      <HintPath>/usr/lib/mono/dbus-sharp-2.0/dbus-sharp.dll</HintPath>
       <Package>dbus-sharp-2.0</Package>
     </Reference>
     <Reference Include="Mono.Posix">
-      <HintPath>..\..\..\bin\Mono.Posix.dll</HintPath>
+      <HintPath>/usr/lib/mono/4.5/Mono.Posix.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

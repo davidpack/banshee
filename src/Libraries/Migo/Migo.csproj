@@ -28,13 +28,13 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\..\bin\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>/usr/lib/mono/4.5/ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Posix">
-      <HintPath>..\..\..\bin\Mono.Posix.dll</HintPath>
+      <HintPath>/usr/lib/mono/4.5/Mono.Posix.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Security">
-      <HintPath>..\..\..\bin\Mono.Security.dll</HintPath>
+      <HintPath>/usr/lib/mono/4.5/Mono.Security.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

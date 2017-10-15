@@ -45,15 +45,17 @@
     </ProjectReference>
     <Reference Include="atk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/atk-sharp.dll</HintPath>
     </Reference>
     <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>glib-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/glib-sharp.dll</HintPath>
     </Reference>
     <Reference Include="taglib-sharp">
-      <HintPath>..\..\..\bin\taglib-sharp.dll</HintPath>
+      <HintPath>/usr/lib/mono/taglib-sharp/taglib-sharp.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Posix">
-      <HintPath>..\..\..\bin\Mono.Posix.dll</HintPath>
+      <HintPath>/usr/lib/mono/4.5/Mono.Posix.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\Hyena\Hyena\Hyena.csproj">
       <Project>{95374549-9553-4C1E-9D89-667755F90E12}</Project>
@@ -64,7 +66,7 @@
       <Name>Hyena.Gui</Name>
     </ProjectReference>
     <Reference Include="Mono.Addins">
-      <HintPath>..\..\..\bin\Mono.Addins.dll</HintPath>
+      <HintPath>/usr/lib/mono/mono-addins/Mono.Addins.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\Hyena\Hyena.Data.Sqlite\Hyena.Data.Sqlite.csproj">
       <Project>{95374549-9553-4C1E-9D89-667755F90E13}</Project>
@@ -75,6 +77,7 @@
     <Reference Include="System" />
     <Reference Include="gtk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/gtk-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

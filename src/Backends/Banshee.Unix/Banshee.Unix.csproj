@@ -39,13 +39,14 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Mono.Posix">
-      <HintPath>..\..\..\bin\Mono.Posix.dll</HintPath>
+      <HintPath>/usr/lib/mono/4.5/Mono.Posix.dll</HintPath>
     </Reference>
     <Reference Include="taglib-sharp">
-      <HintPath>..\..\..\bin\taglib-sharp.dll</HintPath>
+      <HintPath>/usr/lib/mono/taglib-sharp/taglib-sharp.dll</HintPath>
     </Reference>
     <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>glib-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/glib-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -35,29 +35,34 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="dbus-sharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="dbus-sharp">
       <Package>dbus-sharp-2.0</Package>
+      <HintPath>/usr/lib/mono/dbus-sharp-2.0/dbus-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="dbus-sharp-glib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="dbus-sharp-glib">
       <Package>dbus-sharp-glib-2.0</Package>
+      <HintPath>/usr/lib/mono/dbus-sharp-glib-2.0/dbus-sharp-glib.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="gtk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/gtk-sharp.dll</HintPath>
     </Reference>
     <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>glib-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/glib-sharp.dll</HintPath>
     </Reference>
     <Reference Include="gdk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gdk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/gdk-sharp.dll</HintPath>
     </Reference>
     <Reference Include="gio-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>gio-sharp-3.0</Package>
+      <Package>gtk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/gio-sharp.dll</HintPath>
     </Reference>
     <Reference Include="atk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/atk-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

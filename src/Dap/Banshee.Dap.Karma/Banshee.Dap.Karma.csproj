@@ -84,7 +84,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Mono.Posix">
-      <HintPath>..\..\..\bin\Mono.Posix.dll</HintPath>
+      <HintPath>/usr/lib/mono/4.5/Mono.Posix.dll</HintPath>
     </Reference>
     <Reference Include="Karma-Sharp">
       <HintPath>..\..\..\bin\karma-sharp.dll</HintPath>

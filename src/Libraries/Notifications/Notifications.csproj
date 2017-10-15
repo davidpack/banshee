@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\bin</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,31 +27,31 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\bin</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="dbus-sharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5675b0c3093115b5">
-      <HintPath>..\..\..\..\..\..\..\usr\lib\mono\gac\dbus-sharp\2.0.0.0__5675b0c3093115b5\dbus-sharp.dll</HintPath>
+      <HintPath>/usr/lib/mono/dbus-sharp-2.0/dbus-sharp.dll</HintPath>
       <Package>dbus-sharp-2.0</Package>
     </Reference>
     <Reference Include="dbus-sharp-glib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5675b0c3093115b5">
-      <HintPath>..\..\..\..\..\..\..\usr\lib\mono\gac\dbus-sharp-glib\2.0.0.0__5675b0c3093115b5\dbus-sharp-glib.dll</HintPath>
+      <HintPath>/usr/lib/mono/dbus-sharp-glib-2.0/dbus-sharp-glib.dll</HintPath>
       <Package>dbus-sharp-glib-2.0</Package>
     </Reference>
     <Reference Include="gdk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <HintPath>..\..\..\..\..\..\..\usr\lib\mono\gac\gdk-sharp\3.0.0.0__35e10195dab3c99f\gdk-sharp.dll</HintPath>
       <Package>gdk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/gdk-sharp.dll</HintPath>
     </Reference>
     <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <HintPath>..\..\..\..\..\..\..\usr\lib\mono\gac\glib-sharp\3.0.0.0__35e10195dab3c99f\glib-sharp.dll</HintPath>
       <Package>glib-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/glib-sharp.dll</HintPath>
     </Reference>
     <Reference Include="gtk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <HintPath>..\..\..\..\..\..\..\usr\lib\mono\gac\gtk-sharp\3.0.0.0__35e10195dab3c99f\gtk-sharp.dll</HintPath>
       <Package>gtk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/gtk-sharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

@@ -32,17 +32,21 @@
     <Reference Include="System" />
     <Reference Include="gtk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/gtk-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Posix" />
+    <Reference Include="Mono.Posix">
+      <HintPath>/usr/lib/mono/4.5/Mono.Posix.dll</HintPath>
+    </Reference>
     <Reference Include="gdk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gdk-sharp-3.0</Package>
+      <HintPath>/usr/lib/mono/gtk-sharp-3.0/gdk-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Addins, Version=0.4.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Mono.Addins">
+      <HintPath>/usr/lib/mono/mono-addins/Mono.Addins.dll</HintPath>
     </Reference>
     <Reference Include="dbus-sharp">
-      <HintPath>..\..\..\bin\dbus-sharp.dll</HintPath>
       <Package>dbus-sharp-2.0</Package>
+      <HintPath>/usr/lib/mono/dbus-sharp-2.0/dbus-sharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
