@@ -452,6 +452,11 @@
       <summary>Width of search entry element in px</summary>
       <description></description>
     </key>
+    <key name="artist-list-view-type" type="s">
+      <default>'Banshee.Collection.Gui.ColumnCellArtistText'</default>
+      <summary></summary>
+      <description></description>
+    </key>
   </schema>
   <schema id="org.gnome.banshee.plugins.amazonmp3store">
     <key name="country" type="s">
@@ -635,6 +640,16 @@
       <default>10</default>
       <summary>Upcoming Songs Number</summary>
       <description>Number of upcoming songs to show in the Play Queue</description>
+    </key>
+    <key name="current-track" type="i">
+      <default>0</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="current-offset" type="i">
+      <default>0</default>
+      <summary></summary>
+      <description></description>
     </key>
   </schema>
   <schema id="org.gnome.banshee.plugins.podcasting">

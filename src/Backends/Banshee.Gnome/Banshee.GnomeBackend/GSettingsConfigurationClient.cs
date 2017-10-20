@@ -55,34 +55,35 @@ namespace Banshee.GnomeBackend
         public GSettingsConfigurationClient ()
         {
             schema_ids = new List<string> (GLib.Settings.ListRelocatableSchemas ());
+            Hyena.Log.DebugFormat ("### GSettingsConfigurationClient.ctor() Schemas:  {0}", string.Join(",\n", schema_ids));
             schema_ids.RemoveAll (s => !s.StartsWith (base_schema));
+            Hyena.Log.DebugFormat ("### GSettingsConfigurationClient.ctor() Filtered: {0}", string.Join(",\n", schema_ids));
         }
 
         private string GetSchemaIdFromPath (string path)
         {
             string dotted_path = path.TrimStart ('/').Replace ('/', '.');
             while (!schema_ids.Contains (dotted_path)) {
-                dotted_path = dotted_path.Remove (dotted_path.LastIndexOf ('.'));
+                var idx = dotted_path.LastIndexOf ('.');
+                if (0 < idx)
+                    dotted_path = dotted_path.Remove (idx);
+                else
+                    break;
             }
-            Log.DebugFormat ("### GetSchemaIdFromPath {0} -> {1}", path, dotted_path);
             return dotted_path;
         }
-     
+
         public bool TryGet<T> (string @namespace, string key, out T result)
         {
+            Hyena.Log.DebugFormat ("TryGet<{0}> ({1}, {2}, ...)", typeof (T).Name, @namespace, key);
             result = default (T);
-            Hyena.Log.DebugFormat ("### TryGet namespace={0} key={1}", @namespace, key);
-            string path = String.Concat (BasePath, @namespace);
-            string schema_id = GetSchemaIdFromPath (path);
-            GLib.Settings settings;
-            Hyena.Log.DebugFormat ("### GLib.Settings id={0} path={1} key={2}", schema_id, path, key);
             try {
-                settings = new GLib.Settings (schema_id, path);
+                GLib.Settings settings = this [@namespace];
 
-                // gsettings doesn't allow underscores in the keys
                 result = (T)Get (typeof (T), settings, key.Replace ("_", "-"));
             } catch (Exception e) {
                 Log.DebugException (e);
+                return false;
             }
             return true;
         }
@@ -111,12 +112,52 @@ namespace Banshee.GnomeBackend
 
         public void Set<T> (string @namespace, string key, T value)
         {
-            throw new NotImplementedException ("SET not yet! for " + @namespace + "=>" + key);
+            Hyena.Log.DebugFormat ("Set<{0}> ({1}, {2}, ...)", typeof (T).Name, @namespace, key);
+
+            var settings = this [@namespace];
+
+            Set (typeof (T), settings, key, value);
+        }
+
+        private void Set (Type type, GLib.Settings settings, string key, object value)
+        {
+            key = key.Replace ("_", "-");
+
+            if (type == typeof (bool)) {
+                settings.SetBoolean (key, (bool) value);
+            } else if (type == typeof (string)) {
+                settings.SetString (key, (string) value);
+            } else if (type == typeof (int)) {
+                settings.SetInt (key, (int) value);
+            } else if (type == typeof (double)) {
+                settings.SetDouble (key, (double) value);
+            } else if (type == typeof (String[])) {
+                settings.SetStrv (key, (String[]) value);
+            } else {
+                throw new NotImplementedException (String.Format ("Type {0} not supported in {1}",
+                                                                  type.FullName,
+                                                                  this.GetType ().Name));
+            }
         }
 
         public void Set<T> (string @namespace, string path, string key, T value)
         {
-            throw new NotImplementedException ("SET not yet! for " + @namespace + "=>" + key);
+            throw new NotImplementedException ("SET not yet! for " + @namespace + "=>" + path + "=>" + key);
+        }
+
+        private GLib.Settings this [string @namespace]
+        {
+            get {
+                string path = String.Concat (BasePath, @namespace, "/");
+                string schema_id = GetSchemaIdFromPath (path);
+
+                try {
+                    return new GLib.Settings (schema_id, path);
+                } catch (Exception e) {
+                    Log.DebugException (e);
+                    return null;
+                }
+            }
         }
     }
 }

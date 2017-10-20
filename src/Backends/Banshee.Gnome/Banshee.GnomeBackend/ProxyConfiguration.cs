@@ -51,7 +51,7 @@ namespace Banshee.GnomeBackend
         private const string PROXY_PORT = "port";
         private const string PROXY_USER = "authentication-user";
         private const string PROXY_PASSWORD = "authentication-password";
-        private const string PROXY_BYPASS_LIST = "ignore_hosts";
+        private const string PROXY_BYPASS_LIST = "ignore-hosts";
 
         private Settings settings;
         private Settings settings_http;
@@ -61,7 +61,7 @@ namespace Banshee.GnomeBackend
         {
             settings = new Settings (PROXY);
             settings_http = new Settings (HTTP_PROXY);
-            settings.ChangeEvent += OnSettingsChange;
+            //settings.ChangeEvent += OnSettingsChange;
             //settings_http.ChangeEvent += OnSettingsChange;
 
             RefreshProxy ();
@@ -70,7 +70,7 @@ namespace Banshee.GnomeBackend
         public void Dispose ()
         {
             if (settings != null) {
-                settings.ChangeEvent -= OnSettingsChange;
+                //settings.ChangeEvent -= OnSettingsChange;
                 //settings_http.ChangeEvent -= OnSettingsChange;
                 settings = null;
             }
@@ -126,7 +126,7 @@ namespace Banshee.GnomeBackend
             var proxy_port = settings_http.GetInt (PROXY_PORT);
             var proxy_user = settings_http.GetString (PROXY_USER);
             var proxy_password = settings_http.GetString (PROXY_PASSWORD);
-            var proxy_bypass_list = settings_http.GetStrv (PROXY_BYPASS_LIST);
+            var proxy_bypass_list = settings.GetStrv (PROXY_BYPASS_LIST);
 
             if (!use_proxy || proxy_mode == "none" || String.IsNullOrEmpty (proxy_host)) {
                 Hyena.Log.Debug ("Direct connection, no proxy in use");
