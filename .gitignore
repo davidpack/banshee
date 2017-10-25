@@ -86,3 +86,6 @@ data/banshee.appdata.xml
 # GNOME Builder
 .buildconfig
 tags
+
+# VS Code
+.vscode/
