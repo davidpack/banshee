@@ -32,6 +32,8 @@ using System.Collections.Generic;
 
 using Hyena.Collections;
 
+using CollectionExtensions = Hyena.Collections.CollectionExtensions;
+
 namespace Banshee.Preferences
 {
     public class Collection<T> : Root, IList<T> where T : Root
