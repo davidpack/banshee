@@ -109,11 +109,13 @@ namespace Banshee.WebSource
 
         protected override void OnLoadStatusChanged (OssiferLoadStatus status)
         {
-            if ((status == OssiferLoadStatus.FirstVisuallyNonEmptyLayout ||
-                 status == OssiferLoadStatus.Finished) &&
-                Uri != "about:blank") {
-                if (fixup_javascript != null)
-                    ExecuteScript (fixup_javascript);
+            if (Uri != "about:blank" && fixup_javascript != null) {
+                switch (status) {
+                    case OssiferLoadStatus.FirstVisuallyNonEmptyLayout:
+                    case OssiferLoadStatus.Finished:
+                        ExecuteScript (fixup_javascript);
+                        break;
+                }
             }
 
             base.OnLoadStatusChanged (status);
