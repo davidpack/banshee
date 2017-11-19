@@ -26,22 +26,10 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
-using System.Collections.Generic;
-using Mono.Unix;
-
-using Gtk;
 using Cairo;
 
-using Hyena;
-using Hyena.Gui;
-using Hyena.Gui.Theatrics;
-
-using Banshee.Base;
 using Banshee.Collection;
 using Banshee.Collection.Gui;
-using Banshee.ServiceStack;
-using Banshee.MediaEngine;
 
 namespace Banshee.Gui.Widgets
 {
@@ -51,7 +39,7 @@ namespace Banshee.Gui.Widgets
             get { return Allocation.Width; }
         }
 
-        protected override void RenderTrackInfo (Cairo.Context cr, TrackInfo track, bool renderTrack, bool renderArtistAlbum)
+        protected override void RenderTrackInfo (Context cr, TrackInfo track, bool renderTrack, bool renderArtistAlbum)
         {
         }
 
@@ -59,9 +47,19 @@ namespace Banshee.Gui.Widgets
             get { return true; }
         }
 
-        protected override void RenderIdle (Cairo.Context cr)
+        protected override void RenderIdle (Context cr)
         {
-            ArtworkRenderer.RenderThumbnail (cr, null, false, 0, 0, ArtworkSizeRequest, ArtworkSizeRequest, false, 0, true, BackgroundColor);
+            ArtworkRenderer.RenderThumbnail (cr,
+                image:      null, // Uses the Banshee vector logo
+                dispose:    false,
+                x:          0,
+                y:          0,
+                width:      ArtworkSizeRequest,
+                height:     ArtworkSizeRequest,
+                drawBorder: false,
+                radius:     0,
+                fill:       true,
+                fillColor:  BackgroundColor);
         }
     }
 }
