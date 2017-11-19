@@ -374,11 +374,18 @@ namespace Banshee.Gui.Widgets
 
         protected virtual void RenderCoverArt (Cairo.Context cr, ImageSurface image)
         {
-            ArtworkRenderer.RenderThumbnail (cr, image, false,
-                0, ArtworkOffset,
-                ArtworkSizeRequest, ArtworkSizeRequest,
-                !IsMissingImage (image), 0.0,
-                IsMissingImage (image), BackgroundColor);
+            var missing = IsMissingImage (image);
+
+            ArtworkRenderer.RenderThumbnail (cr, image,
+                dispose:     false,
+                x:           0,
+                y:           ArtworkOffset,
+                width:       ArtworkSizeRequest,
+                height:      ArtworkSizeRequest,
+                drawBorder: !missing,
+                radius:      0.0,
+                fill:        missing,
+                fillColor:   BackgroundColor);
         }
 
         protected virtual bool IsWithinCoverart (int x, int y)
