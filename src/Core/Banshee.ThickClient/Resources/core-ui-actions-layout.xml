@@ -6,13 +6,14 @@
     <placeholder name="SeekSlider"/>
     <placeholder name="TrackInfoDisplay"/>
     <placeholder name="SourceActions">
-        <toolitem name="RefreshSmartPlaylist" action="RefreshSmartPlaylistAction"/>
+      <toolitem name="RefreshSmartPlaylist" action="RefreshSmartPlaylistAction"/>
     </placeholder>
     <placeholder name="SearchEntry"/>
     <placeholder name="VolumeButton"/>
     <placeholder name="ToolbarMenuPlaceholder"/>
     <placeholder name="ClosePlaceholder"/>
   </toolbar>
+
   <toolbar name="FooterToolbar">
     <placeholder name="TaskStatus"/>
     <placeholder name="StatusBar"/>
@@ -205,50 +206,3 @@
     <menuitem name="TrackEditor" action="SelectedTracksEditorAction"/>
   </popup>
 </ui>
-
-<!--<menubar name="MainMenu">
-<menu name="MusicMenu" action="MusicMenuAction">
-  <menuitem name="NewCD" action="NewCDAction"/>
-  <placeholder name="NewMusicMenuAdditions"/>
-  /*<menuitem name="ImportFolder" action="ImportFolderAction"/>
-  <menuitem name="ImportFiles" action="ImportFilesAction"/>*/
-  <separator/>
-  <menuitem name="ImportMusic" action="ImportMusicAction"/>
-  <menuitem name="OpenLocation" action="OpenLocationAction"/>
-  <placeholder name="MusicMenuAdditions"/>
-  <separator/>
-  <menuitem name="ImportSource" action="ImportSourceAction"/>
-  <menuitem name="WriteCD" action="WriteCDAction"/>
-  <separator/>
-  <menuitem name="SyncDap" action="SyncDapAction"/>
-</menu>
-<menu name="EditMenu" action="EditMenuAction">
-  <menuitem name="CopySongs" action="CopySongsAction"/>
-  <separator/>
-  <menuitem name="RemoveSongs" action="RemoveSongsAction"/>
-  <menuitem name="DeleteSongsFromDrive" action="DeleteSongsFromDriveAction"/>
-  <menuitem name="RenameSource" action="RenameSourceAction"/>
-  <menuitem name="UnmapSource" action="UnmapSourceAction"/>
-  <separator/>
-  <menuitem name="SelectAll" action="SelectAllAction"/>
-  <menuitem name="SelectNone" action="SelectNoneAction"/>
-  <separator/>
-  <menuitem name="Properties" action="PropertiesAction"/>
-  <menuitem name="SelectedSourceProperties" action="SelectedSourcePropertiesAction"/>
-  <separator/>
-  <menuitem name="Plugins" action="PluginsAction"/>
-  <menuitem name="Preferences" action="PreferencesAction"/>
-</menu>
-
-<menu name="ToolsMenu" action="ToolsMenuAction">
-  <menuitem name="Scripts" action="ScriptsAction"/>
-</menu>
-
- 
-<menu name="DebugMenu" action="DebugMenuAction">
-  
-  <menuitem name="LoggedEvents" action="LoggedEventsAction"/>
-</menu>
-</menubar>
-<popup name="SongViewPopup" action="SongViewPopupAction">
-</popup>-->
