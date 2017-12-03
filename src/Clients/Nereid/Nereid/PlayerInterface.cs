@@ -267,10 +267,10 @@ namespace Nereid
 
             Container source_scroll;
             Hyena.Widgets.ScrolledWindow window;
-            if (ApplicationContext.CommandLine.Contains ("smooth-scroll")) {
-                window = new Hyena.Widgets.SmoothScrolledWindow ();
-            } else {
+            if (ApplicationContext.CommandLine.Contains ("no-smooth-scroll")) {
                 window = new Hyena.Widgets.ScrolledWindow ();
+            } else {
+                window = new Hyena.Widgets.SmoothScrolledWindow ();
             }
 
             window.Add (source_view);

@@ -202,6 +202,7 @@ namespace Booter
                 ),
 
                 new LayoutGroup ("ui", Catalog.GetString ("User Interface Options"),
+                    new LayoutOption ("no-smooth-scroll", Catalog.GetString ("Disable smooth scrolling")),
                     new LayoutOption ("show|--present", Catalog.GetString ("Present the user interface on the active workspace")),
                     new LayoutOption ("fullscreen", Catalog.GetString ("Enter the full-screen mode")),
                     new LayoutOption ("hide", Catalog.GetString ("Hide the user interface")),

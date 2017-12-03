@@ -166,11 +166,10 @@ namespace Banshee.Sources.Gui
         {
             ScrolledWindow window = null;
 
-            //if (!Banshee.Base.ApplicationContext.CommandLine.Contains ("no-smooth-scroll")) {
-            if (ApplicationContext.CommandLine.Contains ("smooth-scroll")) {
-                window = new SmoothScrolledWindow ();
-            } else {
+            if (ApplicationContext.CommandLine.Contains ("no-smooth-scroll")) {
                 window = new ScrolledWindow ();
+            } else {
+                window = new SmoothScrolledWindow ();
             }
 
             window.Add (view);
