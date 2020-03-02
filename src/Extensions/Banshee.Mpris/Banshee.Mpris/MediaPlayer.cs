@@ -187,11 +187,11 @@ namespace Banshee.Mpris
         }
 
         public bool CanPause {
-            get { return engine_service.CanPause; }
+            get { return true; }
         }
 
         public bool CanPlay {
-            get { return CanControl; }
+            get { return true; }
         }
 
         public bool CanSeek {

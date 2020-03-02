@@ -88,8 +88,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banshee.LibraryWatcher", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banshee.MiniMode", "src\Extensions\Banshee.MiniMode\Banshee.MiniMode.csproj", "{FCC1AE87-E10B-4B47-8ADE-D5F447E48518}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banshee.MiroGuide", "src\Extensions\Banshee.MiroGuide\Banshee.MiroGuide.csproj", "{621F56FD-2E25-45E1-A30A-59F98A28A9E7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banshee.Podcasting", "src\Extensions\Banshee.Podcasting\Banshee.Podcasting.csproj", "{46AD1892-C5D3-4696-BA40-FBF7F4CE2B39}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banshee.Sample", "src\Extensions\Banshee.Sample\Banshee.Sample.csproj", "{6FF6F049-9DAB-48A7-BC4B-F7F3ED0EBA63}"
@@ -241,17 +239,11 @@ Global
 		{4FBB954A-5CA9-44DC-97DA-7D549AC3EADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FBB954A-5CA9-44DC-97DA-7D549AC3EADB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F696A8F-B216-4ECE-9E35-907DDFC760BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F696A8F-B216-4ECE-9E35-907DDFC760BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F696A8F-B216-4ECE-9E35-907DDFC760BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F696A8F-B216-4ECE-9E35-907DDFC760BD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6171E5DE-5B36-4AE4-8707-F6BEE0AD945B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6171E5DE-5B36-4AE4-8707-F6BEE0AD945B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6171E5DE-5B36-4AE4-8707-F6BEE0AD945B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6171E5DE-5B36-4AE4-8707-F6BEE0AD945B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{621F56FD-2E25-45E1-A30A-59F98A28A9E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{621F56FD-2E25-45E1-A30A-59F98A28A9E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{621F56FD-2E25-45E1-A30A-59F98A28A9E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{621F56FD-2E25-45E1-A30A-59F98A28A9E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66617494-94CB-43E8-877C-A586F5A6F4EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66617494-94CB-43E8-877C-A586F5A6F4EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66617494-94CB-43E8-877C-A586F5A6F4EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
@@ -457,7 +449,6 @@ Global
 		{16FB0D3A-53FA-4B8E-B02B-4AF66E87829A} = {4DD1DE63-F20B-4FC3-8FDA-F0BDF4183722}
 		{49CA3F27-0BB6-428D-8B3A-20232493652E} = {4DD1DE63-F20B-4FC3-8FDA-F0BDF4183722}
 		{FCC1AE87-E10B-4B47-8ADE-D5F447E48518} = {4DD1DE63-F20B-4FC3-8FDA-F0BDF4183722}
-		{621F56FD-2E25-45E1-A30A-59F98A28A9E7} = {4DD1DE63-F20B-4FC3-8FDA-F0BDF4183722}
 		{46AD1892-C5D3-4696-BA40-FBF7F4CE2B39} = {4DD1DE63-F20B-4FC3-8FDA-F0BDF4183722}
 		{6FF6F049-9DAB-48A7-BC4B-F7F3ED0EBA63} = {4DD1DE63-F20B-4FC3-8FDA-F0BDF4183722}
 		{01818BD5-9A0C-4C89-84FB-08D0E968778F} = {4DD1DE63-F20B-4FC3-8FDA-F0BDF4183722}
@@ -494,11 +485,9 @@ Global
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
 		$0.TextStylePolicy = $1
-		$1.FileWidth = 120
-		$1.inheritsSet = VisualStudio
-		$1.inheritsScope = text/plain
 		$1.NoTabsAfterNonTabs = True
 		$1.scope = text/x-csharp
+		$1.TabsToSpaces = True
 		$0.ChangeLogPolicy = $2
 		$2.UpdateMode = Nearest
 		$2.MessageStyle = $3
@@ -515,12 +504,26 @@ Global
 		$5.scope = text/x-csharp
 		$0.CSharpFormattingPolicy = $6
 		$6.EnumBraceStyle = EndOfLine
-		$6.inheritsSet = Mono
-		$6.inheritsScope = text/x-csharp
 		$6.scope = text/x-csharp
+		$6.IndentSwitchSection = False
+		$6.NewLinesForBracesInProperties = False
+		$6.NewLinesForBracesInAccessors = False
+		$6.NewLinesForBracesInAnonymousMethods = False
+		$6.NewLinesForBracesInControlBlocks = False
+		$6.NewLinesForBracesInAnonymousTypes = False
+		$6.NewLinesForBracesInObjectCollectionArrayInitializers = False
+		$6.NewLinesForBracesInLambdaExpressionBody = False
+		$6.NewLineForElse = False
+		$6.NewLineForCatch = False
+		$6.NewLineForFinally = False
+		$6.NewLineForMembersInObjectInit = False
+		$6.NewLineForMembersInAnonymousTypes = False
+		$6.NewLineForClausesInQuery = False
+		$6.SpacingAfterMethodDeclarationName = True
+		$6.SpaceAfterMethodCallName = True
+		$6.SpaceBeforeOpenSquareBracket = True
 		$0.StandardHeader = $7
 		$7.Text = @\n${FileName}\n\nAuthor:\n  ${AuthorName} <${AuthorEmail}>\n\nCopyright ${Year} ${CopyrightHolder}\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the "Software"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.
-		$7.IncludeInNewFiles = True
 		$0.NameConventionPolicy = $8
 		$8.Rules = $9
 		$9.NamingRule = $10
